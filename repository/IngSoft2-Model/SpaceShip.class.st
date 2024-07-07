@@ -8,7 +8,8 @@ Class {
 		'turnsToLose',
 		'needsToThrow',
 		'ally',
-		'fuelTank'
+		'fuelTank',
+		'leak'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -25,6 +26,12 @@ SpaceShip class >> named: aName withMaxFuel: anAmount [
 
 	self assertValidNameFor: aName.
 	^ self new initialize: aName withMaxFuel: anAmount
+]
+
+{ #category : #'as yet unclassified' }
+SpaceShip >> activateLeakCardPenalty [
+
+	leak := true
 ]
 
 { #category : #accessing }
@@ -45,6 +52,14 @@ SpaceShip >> applyPenaltyForEmptyFuelTank [
 SpaceShip >> changeRollingResultNeededToMove: aNumber [
 
 	needsToThrow := aNumber
+]
+
+{ #category : #playing }
+SpaceShip >> checkLeakPenaltyToDecreaseFuel: aFuelAmount [
+
+	leak
+		ifTrue: [ self decreaseFuelBy: aFuelAmount * 2 ]
+		ifFalse: [ self decreaseFuelBy: aFuelAmount ]
 ]
 
 { #category : #playing }
@@ -90,7 +105,8 @@ SpaceShip >> initialize: aName withMaxFuel: anAmount [
 	turnsToLose := 0.
 	needsToThrow := 0.
 	fuelTank := FuelTank withMaxFuel: anAmount.
-	ally := nil
+	ally := nil.
+	leak:=false.
 ]
 
 { #category : #asserting }
@@ -115,7 +131,7 @@ SpaceShip >> losesTurns: amountOfTurns [
 SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFuelAmount [
 
 	needsToThrow = 0 ifFalse: [ ^ self ].
-	self decreaseFuelBy: aFuelAmount.
+	self checkLeakPenaltyToDecreaseFuel:aFuelAmount.
 
 	fuelTank isEmpty
 		ifTrue: [

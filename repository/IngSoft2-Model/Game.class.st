@@ -53,6 +53,13 @@ Game class >> playedBy: someSpaceShips on: aBoard finishingAfter: laps rolling: 
 		  usingCardsFrom: aDeck
 ]
 
+{ #category : #'as yet unclassified' }
+Game >> activateLeakCardPenaltyOf:cardTarget [
+
+(self spaceshipCalled: cardTarget) activateLeakCardPenalty.
+
+]
+
 { #category : #accessing }
 Game >> addNewCard: aCard to:aPlayer [
 	(self cardsHandOf: aPlayer)  addToHand: aCard.

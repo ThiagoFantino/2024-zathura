@@ -56,6 +56,14 @@ CardPlayResolver >> resolveACancellationCardPlay: aCard [
 ]
 
 { #category : #resolving }
+CardPlayResolver >> resolveALeakCardPlay: aCard [
+
+	game activateLeakCardPenaltyOf:cardTarget.
+	lastCardPlayed := aCard.
+	game removeFromHand: aCard to: cardPlayer
+]
+
+{ #category : #resolving }
 CardPlayResolver >> resolveANitroCardPlay: aCard [
 
 	game applyACardEffect: aCard to: cardTarget.

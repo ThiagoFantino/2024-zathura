@@ -142,3 +142,97 @@ FourthVersionTest >> testFV03WhenSpaceshipUsesNitroCardItAddsThreeToTheTotalRoll
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
 
 ]
+
+{ #category : #tests }
+FourthVersionTest >> testFV04WhenSpaceshipUsesNitroCardItAlsoLastsForThreeTurns [
+
+	| aGame aBoard aDie1 someSpaceships aDeck aNitroCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
+
+	aNitroCard:=NitroCard new.
+
+	aDeck := Deck of: {
+			         aNitroCard.
+			         aNitroCard.
+			         aNitroCard.
+			         aNitroCard.
+						aNitroCard.}.
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	
+	aGame play: aNitroCard  by:'Danny'  targetting: 'Danny'.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
+
+]
+
+{ #category : #tests }
+FourthVersionTest >> testFV05WhenSpaceshipUsesLeakCardItDuplicatesTheConsumptionOfFuel [
+
+	| aGame aBoard aDie1 someSpaceships aDeck aLeakCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
+
+	aLeakCard:=LeakCard new.
+
+	aDeck := Deck of: {
+			         aLeakCard.
+			         aLeakCard.
+			         aLeakCard.
+			         aLeakCard.
+						aLeakCard.}.
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 12.
+	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 12.
+	
+	aGame play: aLeakCard  by:'Danny'  targetting: 'Walter'.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 10.
+	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 8.
+
+]
