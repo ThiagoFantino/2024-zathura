@@ -17,19 +17,27 @@ CardPlayResolver class >> with: aGame [
 ]
 
 { #category : #resolving }
+CardPlayResolver >> cancelALeakCard: aCard [
+
+	game setLeakToFalse.
+]
+
+{ #category : #resolving }
 CardPlayResolver >> cancelAnAccelerationCard: aCard [
+
 	game cancelTheEffectOf: aCard
 ]
 
 { #category : #resolving }
 CardPlayResolver >> cancelAnAllyCard: aCard [
 
-game setAllyToNil.
+	game setAllyToNil.
 ]
 
 { #category : #resolving }
 CardPlayResolver >> cancelAnOverloadCard: aCard [
-	game cancelTheEffectOf:aCard
+
+	game cancelTheEffectOf: aCard
 ]
 
 { #category : #initialization }

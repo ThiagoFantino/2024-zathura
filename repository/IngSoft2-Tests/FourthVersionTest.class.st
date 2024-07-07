@@ -308,13 +308,13 @@ FourthVersionTest >> testFV06LeakCardIsCancelledWhenSpaceshipRunsOutOfFuel [
 { #category : #tests }
 FourthVersionTest >> testFV07LeakCardAlsoIsCancelledWhenSpaceshipUsesCancellationCard [
 
-	| aGame aBoard aDie1 someSpaceships aDeck aLeakCard |
+	| aGame aBoard aDie1 someSpaceships aDeck aLeakCard  aCancellationCard |
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
 				          Null create.
 				          Null create.
-				          Null new.
+				          Null create.
 				          Null create.
 				          Null create.
 				          Null create.
@@ -322,14 +322,14 @@ FourthVersionTest >> testFV07LeakCardAlsoIsCancelledWhenSpaceshipUsesCancellatio
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
-	aLeakCard:=LeakCard new.
+	aLeakCard := LeakCard new.
+	aCancellationCard := CancellationCard new.
 
-	aDeck := Deck of: {
+	aDeck := LoadedDeck of: {
 			         aLeakCard.
+			         aCancellationCard.
 			         aLeakCard.
-			         aLeakCard.
-			         aLeakCard.
-						aLeakCard.}.
+			         aCancellationCard }.
 	aGame := Game
 		         playedBy: someSpaceships
 		         on: aBoard
@@ -339,17 +339,23 @@ FourthVersionTest >> testFV07LeakCardAlsoIsCancelledWhenSpaceshipUsesCancellatio
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 12.
 	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 12.
-	
-	aGame play: aLeakCard  by:'Danny'  targetting: 'Walter'.
-	
+
+	aGame play: aLeakCard by: 'Danny' targetting: 'Walter'. 
+
 	aGame playNextTurn.
 	aGame playNextTurn.
-	
+
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 10.
 	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 8.
 
+	aGame play: aCancellationCard by: 'Walter' targetting:aLeakCard. 
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
+	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 6.
 ]

@@ -178,6 +178,12 @@ SpaceShip >> setAllyToNil [
 	ally := nil
 ]
 
+{ #category : #asserting }
+SpaceShip >> setLeakToFalse [
+
+	leak := false
+]
+
 { #category : #playing }
 SpaceShip >> skipTurn [
 

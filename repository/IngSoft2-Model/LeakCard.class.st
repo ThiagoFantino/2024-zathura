@@ -5,6 +5,12 @@ Class {
 }
 
 { #category : #delegating }
+LeakCard >> cancelEffectUsing: cardPlayResolver [
+
+	cardPlayResolver cancelALeakCard: self
+]
+
+{ #category : #delegating }
 LeakCard >> uses: cardPlayResolver [
 
 	cardPlayResolver resolveALeakCardPlay:self

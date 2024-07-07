@@ -243,6 +243,13 @@ Game >> setAnAllianceBewtween: aSpaceShip and: anotherSpaceShip [
 	spaceship2 isAlliedWith: spaceship1.
 ]
 
+{ #category : #initialization }
+Game >> setLeakToFalse [
+
+	spaceships do: [ :spaceship | spaceship setLeakToFalse ]
+
+]
+
 { #category : #asserting }
 Game >> skipTurnFor: aSpaceship [
 
