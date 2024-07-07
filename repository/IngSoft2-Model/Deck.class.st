@@ -24,11 +24,17 @@ Deck class >> of: someCards [
 { #category : #initialization }
 Deck >> initializeOf: someCards [
 
-	cards := someCards
+	cards := someCards asOrderedCollection shuffled
+]
+
+{ #category : #initialization }
+Deck >> isEmpty [
+
+	^ cards isEmpty
 ]
 
 { #category : #playing }
 Deck >> pick [
 
-	^ cards atRandom
+	^cards atRandom
 ]

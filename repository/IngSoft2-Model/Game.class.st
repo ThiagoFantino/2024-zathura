@@ -10,7 +10,8 @@ Class {
 		'deck',
 		'cardHands',
 		'cardPlayResolver',
-		'effectManager'
+		'effectManager',
+		'discardDeck'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -114,6 +115,18 @@ Game >> cardsHandOf: aSpaceship [
 	^ spaceshipCardHandler
 ]
 
+{ #category : #'as yet unclassified' }
+Game >> decksHasToBeRedistributed [
+
+	^ deck isEmpty
+]
+
+{ #category : #initialization }
+Game >> discardDecklength [
+
+	^ discardDeck size
+]
+
 { #category : #asserting }
 Game >> endGameIfPossible [
 
@@ -123,9 +136,16 @@ Game >> endGameIfPossible [
 { #category : #playing }
 Game >> giveCardFromDeckTo: aSpaceship [
 
-	| card |
-	card := deck pick.
-	self addNewCard:  card to: aSpaceship name.
+	discardDeck
+		ifNotEmpty: [ 
+		| card |
+		card := deck pick.
+		self addNewCard:  card to: aSpaceship name.]
+		ifEmpty: [ 
+			Error signal:
+				'It is not possible to pick a card until DiscardDeck it is not empty!' ].
+	
+	self redistributeDecks.
 ]
 
 { #category : #testing }
@@ -150,7 +170,8 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard finishingAfter: laps rolli
 	effectManager := EffectManager
 		                 usedIn: self
 		                 with: aBoard
-		                 affecting: someSpaceShips
+		                 affecting: someSpaceShips.
+	discardDeck:= OrderedCollection new.
 ]
 
 { #category : #'target resize' }
@@ -175,11 +196,22 @@ Game >> playNextTurn [
 	self endGameIfPossible
 ]
 
+{ #category : #'as yet unclassified' }
+Game >> redistributeDecks [
+
+	self decksHasToBeRedistributed ifFalse: [ ^ self ].
+
+	deck := Deck of: discardDeck.
+	discardDeck := OrderedCollection new
+]
+
 { #category : #removing }
 Game >> removeFromHand: aCard to: aSpaceShip [
 
 	(self cardsHandOf:  aSpaceShip)
-		removeFromHand: aCard
+		removeFromHand: aCard.
+	discardDeck add: aCard.
+	self redistributeDecks
 ]
 
 { #category : #accessing }
