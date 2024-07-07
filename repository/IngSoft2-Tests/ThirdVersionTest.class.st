@@ -1286,7 +1286,7 @@ ThirdVersionTest >> testTV25WhenSpaceshipUsesRepeatCardAfterACardGiverItTriggers
 
 	aRepeatCard := RepeatCard new.
 
-	aDeck := LoadedDeck of: {
+	aDeck := Deck of: {
 			         aRepeatCard.
 			         aRepeatCard.
 			         aRepeatCard.
