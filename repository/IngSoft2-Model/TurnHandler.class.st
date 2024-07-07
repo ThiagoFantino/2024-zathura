@@ -28,6 +28,12 @@ TurnHandler >> changeTurns [
 	spaceships removeFirst
 ]
 
+{ #category : #playing }
+TurnHandler >> checkNitroTurns: spaceshipTurn [
+
+(spaceshipTurn nitroTurns > 0) ifTrue: [spaceshipTurn assignNitroTurns: -1 ]
+]
+
 { #category : #initialization }
 TurnHandler >> initializeWithSpaceships: someSpaceShips [
 
@@ -39,6 +45,7 @@ TurnHandler >> nextSpaceshipTurn [
 
 	| spaceshipTurn |
 	spaceshipTurn := self nextTurn.
+	self checkNitroTurns:spaceshipTurn.
 	[ spaceshipTurn turnsToLose > 0 ] whileTrue: [
 		spaceshipTurn losesTurns: -1.
 		self changeTurns.

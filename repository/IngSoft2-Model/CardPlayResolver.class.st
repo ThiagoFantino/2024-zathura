@@ -5,7 +5,8 @@ Class {
 		'game',
 		'lastCardPlayed',
 		'cardPlayer',
-		'cardTarget'
+		'cardTarget',
+		'nitroCardPlayed'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -20,6 +21,22 @@ CardPlayResolver class >> with: aGame [
 CardPlayResolver >> cancelALeakCard: aCard [
 
 	game setLeakToFalse.
+]
+
+{ #category : #resolving }
+CardPlayResolver >> cancelANitroCard [
+
+((game spaceshipCalled: 'Danny') nitroTurns) == 0
+		ifTrue: [
+		(game cardsHandOf: 'Danny') removeEffectOf: nitroCardPlayed ].
+]
+
+{ #category : #resolving }
+CardPlayResolver >> cancelANitroCard:spaceshipTurn [
+
+((game spaceshipCalled: spaceshipTurn name) nitroTurns) == 0
+		ifTrue: [
+		(game cardsHandOf: spaceshipTurn name) removeEffectOf: nitroCardPlayed ].
 ]
 
 { #category : #resolving }
@@ -75,7 +92,9 @@ CardPlayResolver >> resolveALeakCardPlay: aCard [
 CardPlayResolver >> resolveANitroCardPlay: aCard [
 
 	game applyACardEffect: aCard to: cardTarget.
+	game activateNitroTurnsOf:cardTarget.
 	lastCardPlayed := aCard.
+	nitroCardPlayed := aCard.
 	game removeFromHand: aCard to: cardPlayer
 ]
 
@@ -97,7 +116,6 @@ CardPlayResolver >> resolveARepeatCardPlay: aCard [
 
 { #category : #resolving }
 CardPlayResolver >> resolveAnAccelerationCardPlay:aCard [
-	
 	
 	game assertIsTurnOf: cardPlayer.
 	game applyToAllSpaceShips: aCard.

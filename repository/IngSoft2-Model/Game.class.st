@@ -54,10 +54,15 @@ Game class >> playedBy: someSpaceShips on: aBoard finishingAfter: laps rolling: 
 ]
 
 { #category : #'as yet unclassified' }
-Game >> activateLeakCardPenaltyOf:cardTarget [
+Game >> activateLeakCardPenaltyOf: cardTarget [
 
-(self spaceshipCalled: cardTarget) activateLeakCardPenalty.
+	(self spaceshipCalled: cardTarget) activateLeakCardPenalty
+]
 
+{ #category : #'as yet unclassified' }
+Game >> activateNitroTurnsOf: cardTarget [
+
+	(self spaceshipCalled: cardTarget) assignNitroTurns:3.
 ]
 
 { #category : #accessing }
@@ -194,6 +199,7 @@ Game >> playNextTurn [
 	rollModifier := self rollModifierFor: spaceshipTurn.
 	board move: spaceshipTurn by: rollingResult + rollModifier.
 	effectManager applyEffectOnLandingShip: spaceshipTurn.
+	cardPlayResolver cancelANitroCard:spaceshipTurn.
 	self endGameIfPossible
 ]
 
@@ -204,6 +210,15 @@ Game >> redistributeDecks [
 
 	deck := Deck of: discardDeck.
 	discardDeck := OrderedCollection new
+]
+
+{ #category : #removing }
+Game >> removeEffectOf: aCard to: aSpaceship [
+	|filteredCardsHands|
+	filteredCardsHands := cardHands select: [ :cardsHand |
+		                      cardsHand spaceship=aSpaceship ].
+	filteredCardsHands do: [ :cardsHand |
+		cardsHand removeEffectOf: aCard].
 ]
 
 { #category : #removing }

@@ -152,22 +152,35 @@ FourthVersionTest >> testFV04WhenSpaceshipUsesNitroCardItAlsoLastsForThreeTurns 
 		          of: {
 				          Null create.
 				          Null create.
-				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
 				          Null create.
 				          Null create.
 				          Null create.
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
-	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
+	aDie1 := LoadedDie of: { 1. 1. 1. 1. 1. 1. 1. 1. 20 }.
 
-	aNitroCard:=NitroCard new.
+	aNitroCard := NitroCard new.
 
 	aDeck := Deck of: {
 			         aNitroCard.
 			         aNitroCard.
 			         aNitroCard.
 			         aNitroCard.
-						aNitroCard.}.
+			         aNitroCard }.
 	aGame := Game
 		         playedBy: someSpaceships
 		         on: aBoard
@@ -177,15 +190,32 @@ FourthVersionTest >> testFV04WhenSpaceshipUsesNitroCardItAlsoLastsForThreeTurns 
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	
-	aGame play: aNitroCard  by:'Danny'  targetting: 'Danny'.
-	
-	aGame playNextTurn.
-	aGame playNextTurn.
-	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
 
+	aGame play: aNitroCard by: 'Walter' targetting: 'Walter'.
+	self assert: (aGame spaceshipCalled: 'Walter') nitroTurns equals: 3.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
+	self assert: (aGame spaceshipCalled: 'Walter') nitroTurns equals: 2.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 9.
+	self assert: (aGame spaceshipCalled: 'Walter') nitroTurns equals: 1.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 13.
+	self assert: (aGame spaceshipCalled: 'Walter') nitroTurns equals: 0.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 14.
 ]
 
 { #category : #tests }

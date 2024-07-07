@@ -9,7 +9,8 @@ Class {
 		'needsToThrow',
 		'ally',
 		'fuelTank',
-		'leak'
+		'leak',
+		'nitroTurns'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -47,6 +48,12 @@ SpaceShip >> applyPenaltyForEmptyFuelTank [
 	fuelTank refuelToMax.
 	self losesTurns: 2.
 	leak := false.
+]
+
+{ #category : #playing }
+SpaceShip >> assignNitroTurns: amountOfTurns [
+
+	nitroTurns := nitroTurns + amountOfTurns
 ]
 
 { #category : #playing }
@@ -104,6 +111,7 @@ SpaceShip >> initialize: aName withMaxFuel: anAmount [
 	position := 1.
 	lap := 1.
 	turnsToLose := 0.
+	nitroTurns := 0.
 	needsToThrow := 0.
 	fuelTank := FuelTank withMaxFuel: anAmount.
 	ally := nil.
@@ -154,6 +162,12 @@ SpaceShip >> moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove [
 SpaceShip >> name [
 
 	^ name
+]
+
+{ #category : #initialization }
+SpaceShip >> nitroTurns [
+
+	^ nitroTurns
 ]
 
 { #category : #'accessing - arguments' }
