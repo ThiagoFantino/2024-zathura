@@ -236,3 +236,120 @@ FourthVersionTest >> testFV05WhenSpaceshipUsesLeakCardItDuplicatesTheConsumption
 	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 8.
 
 ]
+
+{ #category : #tests }
+FourthVersionTest >> testFV06LeakCardIsCancelledWhenSpaceshipRunsOutOfFuel [
+
+	| aGame aBoard aDie1 someSpaceships aDeck aLeakCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 2. 2. 1. 2. 1. 1. 1. 1. 3.}.
+
+	aLeakCard:=LeakCard new.
+
+	aDeck := Deck of: {
+			         aLeakCard.
+			         aLeakCard.
+			         aLeakCard.
+			         aLeakCard.
+						aLeakCard.}.
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 6.
+	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 6.
+	
+	aGame play: aLeakCard  by:'Danny'  targetting: 'Walter'.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 2.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 3.
+	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 6.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 0.
+	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 5.
+	
+	
+]
+
+{ #category : #tests }
+FourthVersionTest >> testFV07LeakCardAlsoIsCancelledWhenSpaceshipUsesCancellationCard [
+
+	| aGame aBoard aDie1 someSpaceships aDeck aLeakCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
+
+	aLeakCard:=LeakCard new.
+
+	aDeck := Deck of: {
+			         aLeakCard.
+			         aLeakCard.
+			         aLeakCard.
+			         aLeakCard.
+						aLeakCard.}.
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 12.
+	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 12.
+	
+	aGame play: aLeakCard  by:'Danny'  targetting: 'Walter'.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 10.
+	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 8.
+
+]

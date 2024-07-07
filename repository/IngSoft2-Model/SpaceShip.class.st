@@ -45,7 +45,8 @@ SpaceShip >> applyPenaltyForEmptyFuelTank [
 
 	position := 1.
 	fuelTank refuelToMax.
-	self losesTurns: 2
+	self losesTurns: 2.
+	leak := false.
 ]
 
 { #category : #playing }
