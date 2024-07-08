@@ -1,43 +1,43 @@
 Class {
-	#name : #ProbabilityEffectTile,
+	#name : #ProbabilityAssigner,
 	#superclass : #Object,
 	#instVars : [
-		'effect',
+		'element',
 		'probability'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #asserting }
-ProbabilityEffectTile class >> assertProbabilityIsBetweenZeroAndOne: probability [
+ProbabilityAssigner class >> assertProbabilityIsBetweenZeroAndOne: probability [
 
 	(probability between: 0 and: 1) ifFalse: [
 		Error signal: 'Probability must be between 0 and 1!' ]
 ]
 
 { #category : #'instance creation' }
-ProbabilityEffectTile class >> with: effect and: probability [
+ProbabilityAssigner class >> with: element and: probability [
 
 	self assertProbabilityIsBetweenZeroAndOne: probability.
 
-	^ self new initializeWith: effect and: probability
+	^ self new initializeWith: element and: probability
 ]
 
 { #category : #accessing }
-ProbabilityEffectTile >> effect [
+ProbabilityAssigner >> element [
 
-	^ effect
+	^ element
 ]
 
 { #category : #initialization }
-ProbabilityEffectTile >> initializeWith: anEffect and: aProbability [
+ProbabilityAssigner >> initializeWith: anElement and: aProbability [
 
-	effect := anEffect.
+	element := anElement.
 	probability := aProbability
 ]
 
 { #category : #accessing }
-ProbabilityEffectTile >> probability [
+ProbabilityAssigner >> probability [
 
 	^ probability
 ]

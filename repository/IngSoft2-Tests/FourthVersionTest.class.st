@@ -95,7 +95,7 @@ FourthVersionTest >> testFV02WhenACardIsUsedItGoesToTheDiscardDeck [
 ]
 
 { #category : #tests }
-FourthVersionTest >> testFV02WhenDeckIsEmptyDiscardDeckIsShuffledAndThatIsTheNewDeck [
+FourthVersionTest >> testFV03WhenDeckIsEmptyDiscardDeckIsShuffledAndThatIsTheNewDeck [
 
 	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard |
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -146,7 +146,93 @@ FourthVersionTest >> testFV02WhenDeckIsEmptyDiscardDeckIsShuffledAndThatIsTheNew
 ]
 
 { #category : #tests }
-FourthVersionTest >> testFV03WhenSpaceshipUsesNitroCardItAddsThreeToTheTotalRollOfIt [
+FourthVersionTest >> testFV04DeckHasProbabilityOfOccurrence [
+
+	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard cardsDistribution cardsCollection anAllyCard anOverloadCard aCancellationCard aRedoCard aRepeatCard aNitroCard aLeakCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          CardGiver new.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
+
+	anAccelerationCard := AccelerationCard new.
+	anAllyCard := AllyCard new.
+	anOverloadCard := OverloadCard new.
+	aCancellationCard := CancellationCard new.
+	aRedoCard := RedoCard new.
+	aRepeatCard := RepeatCard new.
+	aNitroCard := NitroCard new.
+	aLeakCard := LeakCard new.
+
+	cardsDistribution := Distribution with: {
+			                     (ProbabilityAssigner
+				                      with: anAllyCard
+				                      and: 0.20).
+			                     (ProbabilityAssigner
+				                      with: anOverloadCard
+				                      and: 0.20).
+			                     (ProbabilityAssigner
+				                      with: aCancellationCard
+				                      and: 0.20).
+			                     (ProbabilityAssigner
+				                      with: anAccelerationCard
+				                      and: 0.20).
+			                     (ProbabilityAssigner with: aRedoCard and: 0.10).
+			                     (ProbabilityAssigner with: aRepeatCard and: 0).
+			                     (ProbabilityAssigner
+				                      with: aNitroCard
+				                      and: 0.05).
+			                     (ProbabilityAssigner with: aLeakCard and: 0.05) }.
+
+	cardsCollection := cardsDistribution randomCollectionWith: 20.
+
+	aDeck := Deck of: cardsCollection.
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self
+		assert: (cardsDistribution checkProbabilityOf: anAccelerationCard)
+		equals: 20.
+	self
+		assert: (cardsDistribution checkProbabilityOf: anAllyCard)
+		equals: 20.
+	self
+		assert: (cardsDistribution checkProbabilityOf: anOverloadCard)
+		equals: 20.
+	self
+		assert: (cardsDistribution checkProbabilityOf: aCancellationCard)
+		equals: 20.
+	self
+		assert: (cardsDistribution checkProbabilityOf: aRedoCard)
+		equals: 10.
+	self
+		assert: (cardsDistribution checkProbabilityOf: aRepeatCard)
+		equals: 0.
+	self
+		assert: (cardsDistribution checkProbabilityOf: aNitroCard)
+		equals: 5.
+	self
+		assert: (cardsDistribution checkProbabilityOf: aLeakCard)
+		equals: 5.
+
+	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 2.
+	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size equals: 2.
+	self assert: aGame deckLength equals: 16
+]
+
+{ #category : #tests }
+FourthVersionTest >> testFV05WhenSpaceshipUsesNitroCardItAddsThreeToTheTotalRollOfIt [
 
 	| aGame aBoard aDie1 someSpaceships aDeck aNitroCard |
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -191,7 +277,7 @@ FourthVersionTest >> testFV03WhenSpaceshipUsesNitroCardItAddsThreeToTheTotalRoll
 ]
 
 { #category : #tests }
-FourthVersionTest >> testFV04WhenSpaceshipUsesNitroCardItAlsoLastsForThreeTurns [
+FourthVersionTest >> testFV06WhenSpaceshipUsesNitroCardItAlsoLastsForThreeTurns [
 
 	| aGame aBoard aDie1 someSpaceships aDeck aNitroCard |
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -266,7 +352,7 @@ FourthVersionTest >> testFV04WhenSpaceshipUsesNitroCardItAlsoLastsForThreeTurns 
 ]
 
 { #category : #tests }
-FourthVersionTest >> testFV05WhenSpaceshipUsesLeakCardItDuplicatesTheConsumptionOfFuel [
+FourthVersionTest >> testFV07WhenSpaceshipUsesLeakCardItDuplicatesTheConsumptionOfFuel [
 
 	| aGame aBoard aDie1 someSpaceships aDeck aLeakCard |
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -315,7 +401,7 @@ FourthVersionTest >> testFV05WhenSpaceshipUsesLeakCardItDuplicatesTheConsumption
 ]
 
 { #category : #tests }
-FourthVersionTest >> testFV06LeakCardIsCancelledWhenSpaceshipRunsOutOfFuel [
+FourthVersionTest >> testFV08LeakCardIsCancelledWhenSpaceshipRunsOutOfFuel [
 
 	| aGame aBoard aDie1 someSpaceships aDeck aLeakCard |
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -383,7 +469,7 @@ FourthVersionTest >> testFV06LeakCardIsCancelledWhenSpaceshipRunsOutOfFuel [
 ]
 
 { #category : #tests }
-FourthVersionTest >> testFV07LeakCardAlsoIsCancelledWhenSpaceshipUsesCancellationCard [
+FourthVersionTest >> testFV09LeakCardAlsoIsCancelledWhenSpaceshipUsesCancellationCard [
 
 	| aGame aBoard aDie1 someSpaceships aDeck aLeakCard  aCancellationCard |
 	someSpaceships := { 'Danny'. 'Walter' }.
