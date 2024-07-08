@@ -218,7 +218,7 @@ Game >> redistributeDecks [
 
 	self decksHasToBeRedistributed ifFalse: [ ^ self ].
 
-	deck := Deck of: discardDeck.
+	deck initializeOf: discardDeck.
 	discardDeck := OrderedCollection new
 ]
 

@@ -5,53 +5,6 @@ Class {
 }
 
 { #category : #tests }
-FourthVersionTest >> testBanana [
-
-	| aGame aBoard aDie1 someSpaceships aDeck anAllyCard cardsDistribution cardsCollection |
-	someSpaceships := { 'Danny'. 'Walter' }.
-	aBoard := Board
-		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          CardGiver new.
-				          Null create.
-				          Null create.
-				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
-	aDie1 := LoadedDie of: { 3. 3. 2. 2. 6 }.
-
-	anAllyCard := AllyCard new.
-
-	cardsDistribution := Distribution with:
-		                     { (ProbabilityAssigner with: anAllyCard and: 1) }.
-
-	cardsCollection := cardsDistribution randomCollectionWith: 4.
-
-	aDeck := Deck of: cardsCollection.
-
-	aGame := Game
-		         playedBy: someSpaceships
-		         on: aBoard
-		         finishingAfter: 2
-		         rolling: aDie1
-		         usingCardsFrom: aDeck.
-
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 2.
-	self assert: aGame deckLength equals: 0.
-	self assert: aGame discardDecklength equals: 0.
-	
-	aGame play:anAllyCard by:'Danny' targetting: 'Walter'.
-
-	self assert: aGame deckLength equals: 1.
-	self assert: aGame discardDecklength equals: 0.
-"
-	aGame playNextTurn.
-"
-]
-
-{ #category : #tests }
 FourthVersionTest >> testFV01DeckHasALimitedAmountOfCards [
 
 	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard cardsDistribution cardsCollection |
@@ -650,4 +603,53 @@ FourthVersionTest >> testFV10WhenDeckIsEmptyAndDiscardDeckIsEmptyNoCardsCanBeTak
 		should: [ aGame playNextTurn ]
 		raise: Error
 		withMessage: 'It is not possible to pick a card because both decks are empty!'
+]
+
+{ #category : #tests }
+FourthVersionTest >> testFV11WhenDiscardDeckIsEmptyAndACardFromDeckIsUsedBothEndUpEmpty [
+
+	| aGame aBoard aDie1 someSpaceships aDeck anAllyCard cardsDistribution cardsCollection |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          CardGiver new.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 3. 3. 2. 2. 6 }.
+
+	anAllyCard := AllyCard new.
+
+	cardsDistribution := Distribution with:
+		                     { (ProbabilityAssigner with: anAllyCard and: 1) }.
+
+	cardsCollection := cardsDistribution randomCollectionWith: 4.
+
+	aDeck := Deck of: cardsCollection.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 2.
+	self assert: aGame deckLength equals: 0.
+	self assert: aGame discardDecklength equals: 0.
+	
+	aGame play:anAllyCard by:'Danny' targetting: 'Walter'.
+
+	self assert: aGame deckLength equals: 1.
+	self assert: aGame discardDecklength equals: 0.
+
+	aGame playNextTurn.
+	
+	self assert: aGame deckLength equals: 0.
+	self assert: aGame discardDecklength equals: 0.
 ]
