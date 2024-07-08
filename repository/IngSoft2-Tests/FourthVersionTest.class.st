@@ -7,7 +7,7 @@ Class {
 { #category : #tests }
 FourthVersionTest >> testFV01DeckHasALimitedAmountOfCards [
 
-	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard |
+	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard cardsDistribution cardsCollection |
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
@@ -23,12 +23,14 @@ FourthVersionTest >> testFV01DeckHasALimitedAmountOfCards [
 
 	anAccelerationCard := AccelerationCard new.
 
-	aDeck := Deck of: {
-			         anAccelerationCard.
-			         anAccelerationCard.
-			         anAccelerationCard.
-			         anAccelerationCard.
-			         anAccelerationCard }.
+	cardsDistribution := Distribution with:
+		                     { (ProbabilityAssigner
+			                      with: anAccelerationCard
+			                      and: 1) }.
+
+	cardsCollection := cardsDistribution randomCollectionWith: 5.
+
+	aDeck := Deck of: cardsCollection.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -47,7 +49,7 @@ FourthVersionTest >> testFV01DeckHasALimitedAmountOfCards [
 { #category : #tests }
 FourthVersionTest >> testFV02WhenACardIsUsedItGoesToTheDiscardDeck [
 
-	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard |
+	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard cardsDistribution cardsCollection |
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
@@ -61,14 +63,17 @@ FourthVersionTest >> testFV02WhenACardIsUsedItGoesToTheDiscardDeck [
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
-	anAccelerationCard:=AccelerationCard new.
+	anAccelerationCard := AccelerationCard new.
 
-	aDeck := Deck of: {
-			         anAccelerationCard.
-			         anAccelerationCard.
-			         anAccelerationCard.
-			         anAccelerationCard.
-						anAccelerationCard.}.
+	cardsDistribution := Distribution with:
+		                     { (ProbabilityAssigner
+			                      with: anAccelerationCard
+			                      and: 1) }.
+
+	cardsCollection := cardsDistribution randomCollectionWith: 5.
+
+	aDeck := Deck of: cardsCollection.
+
 	aGame := Game
 		         playedBy: someSpaceships
 		         on: aBoard
@@ -78,26 +83,25 @@ FourthVersionTest >> testFV02WhenACardIsUsedItGoesToTheDiscardDeck [
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame discardDecklength) equals:0.
-	
-	aGame play: anAccelerationCard  by:'Danny'  targetting: 'all'.
-	
+	self assert: aGame discardDecklength equals: 0.
+
+	aGame play: anAccelerationCard by: 'Danny' targetting: 'all'.
+
 	aGame playNextTurn.
-	
-	aGame play: anAccelerationCard  by:'Walter'  targetting: 'all'.
-	
+
+	aGame play: anAccelerationCard by: 'Walter' targetting: 'all'.
+
 	aGame playNextTurn.
-	
+
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
-	self assert: (aGame discardDecklength) equals:2.
-
+	self assert: aGame discardDecklength equals: 2
 ]
 
 { #category : #tests }
 FourthVersionTest >> testFV03WhenDeckIsEmptyDiscardDeckIsShuffledAndThatIsTheNewDeck [
 
-	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard |
+	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard cardsDistribution cardsCollection |
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
@@ -113,12 +117,15 @@ FourthVersionTest >> testFV03WhenDeckIsEmptyDiscardDeckIsShuffledAndThatIsTheNew
 
 	anAccelerationCard := AccelerationCard new.
 
-	aDeck := Deck of: {
-			         anAccelerationCard.
-			         anAccelerationCard.
-			         anAccelerationCard.
-			         anAccelerationCard.
-			         anAccelerationCard }.
+	cardsDistribution := Distribution with:
+		                     { (ProbabilityAssigner
+			                      with: anAccelerationCard
+			                      and: 1) }.
+
+	cardsCollection := cardsDistribution randomCollectionWith: 5.
+
+	aDeck := Deck of: cardsCollection.
+
 	aGame := Game
 		         playedBy: someSpaceships
 		         on: aBoard
@@ -234,7 +241,7 @@ FourthVersionTest >> testFV04DeckHasProbabilityOfOccurrence [
 { #category : #tests }
 FourthVersionTest >> testFV05WhenSpaceshipUsesNitroCardItAddsThreeToTheTotalRollOfIt [
 
-	| aGame aBoard aDie1 someSpaceships aDeck aNitroCard |
+	| aGame aBoard aDie1 someSpaceships aDeck aNitroCard cardsDistribution cardsCollection |
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
@@ -248,14 +255,15 @@ FourthVersionTest >> testFV05WhenSpaceshipUsesNitroCardItAddsThreeToTheTotalRoll
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
-	aNitroCard:=NitroCard new.
+	aNitroCard := NitroCard new.
 
-	aDeck := Deck of: {
-			         aNitroCard.
-			         aNitroCard.
-			         aNitroCard.
-			         aNitroCard.
-						aNitroCard.}.
+	cardsDistribution := Distribution with:
+		                     { (ProbabilityAssigner with: aNitroCard and: 1) }.
+
+	cardsCollection := cardsDistribution randomCollectionWith: 5.
+
+	aDeck := Deck of: cardsCollection.
+
 	aGame := Game
 		         playedBy: someSpaceships
 		         on: aBoard
@@ -265,21 +273,20 @@ FourthVersionTest >> testFV05WhenSpaceshipUsesNitroCardItAddsThreeToTheTotalRoll
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	
-	aGame play: aNitroCard  by:'Danny'  targetting: 'Danny'.
-	
-	aGame playNextTurn.
-	aGame playNextTurn.
-	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
 
+	aGame play: aNitroCard by: 'Danny' targetting: 'Danny'.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3
 ]
 
 { #category : #tests }
 FourthVersionTest >> testFV06WhenSpaceshipUsesNitroCardItAlsoLastsForThreeTurns [
 
-	| aGame aBoard aDie1 someSpaceships aDeck aNitroCard |
+	| aGame aBoard aDie1 someSpaceships aDeck aNitroCard cardsDistribution cardsCollection |
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
@@ -308,12 +315,13 @@ FourthVersionTest >> testFV06WhenSpaceshipUsesNitroCardItAlsoLastsForThreeTurns 
 
 	aNitroCard := NitroCard new.
 
-	aDeck := Deck of: {
-			         aNitroCard.
-			         aNitroCard.
-			         aNitroCard.
-			         aNitroCard.
-			         aNitroCard }.
+	cardsDistribution := Distribution with:
+		                     { (ProbabilityAssigner with: aNitroCard and: 1) }.
+
+	cardsCollection := cardsDistribution randomCollectionWith: 5.
+
+	aDeck := Deck of: cardsCollection.
+
 	aGame := Game
 		         playedBy: someSpaceships
 		         on: aBoard
@@ -348,13 +356,13 @@ FourthVersionTest >> testFV06WhenSpaceshipUsesNitroCardItAlsoLastsForThreeTurns 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 14.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 14
 ]
 
 { #category : #tests }
 FourthVersionTest >> testFV07WhenSpaceshipUsesLeakCardItDuplicatesTheConsumptionOfFuel [
 
-	| aGame aBoard aDie1 someSpaceships aDeck aLeakCard |
+	| aGame aBoard aDie1 someSpaceships aDeck aLeakCard cardsDistribution cardsCollection |
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
@@ -368,14 +376,15 @@ FourthVersionTest >> testFV07WhenSpaceshipUsesLeakCardItDuplicatesTheConsumption
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
-	aLeakCard:=LeakCard new.
+	aLeakCard := LeakCard new.
 
-	aDeck := Deck of: {
-			         aLeakCard.
-			         aLeakCard.
-			         aLeakCard.
-			         aLeakCard.
-						aLeakCard.}.
+	cardsDistribution := Distribution with:
+		                     { (ProbabilityAssigner with: aLeakCard and: 1) }.
+
+	cardsCollection := cardsDistribution randomCollectionWith: 5.
+
+	aDeck := Deck of: cardsCollection.
+
 	aGame := Game
 		         playedBy: someSpaceships
 		         on: aBoard
@@ -385,25 +394,32 @@ FourthVersionTest >> testFV07WhenSpaceshipUsesLeakCardItDuplicatesTheConsumption
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 12.
-	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 12.
-	
-	aGame play: aLeakCard  by:'Danny'  targetting: 'Walter'.
-	
+	self
+		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
+		equals: 12.
+	self
+		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		equals: 12.
+
+	aGame play: aLeakCard by: 'Danny' targetting: 'Walter'.
+
 	aGame playNextTurn.
 	aGame playNextTurn.
-	
+
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 10.
-	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 8.
-
+	self
+		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
+		equals: 10.
+	self
+		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		equals: 8
 ]
 
 { #category : #tests }
 FourthVersionTest >> testFV08LeakCardIsCancelledWhenSpaceshipRunsOutOfFuel [
 
-	| aGame aBoard aDie1 someSpaceships aDeck aLeakCard |
+	| aGame aBoard aDie1 someSpaceships aDeck aLeakCard cardsDistribution cardsCollection |
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
@@ -415,16 +431,17 @@ FourthVersionTest >> testFV08LeakCardIsCancelledWhenSpaceshipRunsOutOfFuel [
 				          Null create.
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
-	aDie1 := LoadedDie of: { 2. 2. 1. 2. 1. 1. 1. 1. 3.}.
+	aDie1 := LoadedDie of: { 2. 2. 1. 2. 1. 1. 1. 1. 3 }.
 
-	aLeakCard:=LeakCard new.
+	aLeakCard := LeakCard new.
 
-	aDeck := Deck of: {
-			         aLeakCard.
-			         aLeakCard.
-			         aLeakCard.
-			         aLeakCard.
-						aLeakCard.}.
+	cardsDistribution := Distribution with:
+		                     { (ProbabilityAssigner with: aLeakCard and: 1) }.
+
+	cardsCollection := cardsDistribution randomCollectionWith: 5.
+
+	aDeck := Deck of: cardsCollection.
+
 	aGame := Game
 		         playedBy: someSpaceships
 		         on: aBoard
@@ -434,44 +451,58 @@ FourthVersionTest >> testFV08LeakCardIsCancelledWhenSpaceshipRunsOutOfFuel [
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 6.
-	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 6.
-	
-	aGame play: aLeakCard  by:'Danny'  targetting: 'Walter'.
-	
+	self
+		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
+		equals: 6.
+	self
+		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		equals: 6.
+
+	aGame play: aLeakCard by: 'Danny' targetting: 'Walter'.
+
 	aGame playNextTurn.
 	aGame playNextTurn.
-	
+
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 2.
-	
+	self
+		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
+		equals: 4.
+	self
+		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		equals: 2.
+
 	aGame playNextTurn.
 	aGame playNextTurn.
-	
+
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 6.
-	
+	self
+		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
+		equals: 3.
+	self
+		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		equals: 6.
+
 	aGame playNextTurn.
 	aGame playNextTurn.
 	aGame playNextTurn.
 	aGame playNextTurn.
-	
+
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 0.
-	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 5.
-	
-	
+	self
+		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
+		equals: 0.
+	self
+		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		equals: 5
 ]
 
 { #category : #tests }
 FourthVersionTest >> testFV09LeakCardAlsoIsCancelledWhenSpaceshipUsesCancellationCard [
 
-	| aGame aBoard aDie1 someSpaceships aDeck aLeakCard  aCancellationCard |
+	| aGame aBoard aDie1 someSpaceships aDeck aLeakCard aCancellationCard |
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
@@ -502,23 +533,29 @@ FourthVersionTest >> testFV09LeakCardAlsoIsCancelledWhenSpaceshipUsesCancellatio
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 12.
+	self
+		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		equals: 12.
 
-	aGame play: aLeakCard by: 'Danny' targetting: 'Walter'. 
+	aGame play: aLeakCard by: 'Danny' targetting: 'Walter'.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 8.
+	self
+		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		equals: 8.
 
-	aGame play: aCancellationCard by: 'Walter' targetting:aLeakCard. 
-	
+	aGame play: aCancellationCard by: 'Walter' targetting: aLeakCard.
+
 	aGame playNextTurn.
 	aGame playNextTurn.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
-	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel equals: 6.
+	self
+		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		equals: 6
 ]
