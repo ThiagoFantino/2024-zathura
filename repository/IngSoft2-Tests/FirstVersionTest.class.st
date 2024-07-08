@@ -57,7 +57,7 @@ FirstVersionTest >> testFV02SpaceshipsStartAtFirstTile [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2' }).
 
 
 	self assert: (aGame spaceshipCalled: 'Danny') name equals: 'Danny'.
@@ -90,7 +90,7 @@ FirstVersionTest >> testFV03GameHasEndedAsOneSpaceshipReachTheEnd [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2' }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -133,7 +133,7 @@ FirstVersionTest >> testFV04CantRollAfterGameEnded [
 		         on: aBoard
 		         finishingAfter: 1
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2' }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -173,7 +173,7 @@ FirstVersionTest >> testFV05IsValidWhenTheWinnerIsAssignedCorrectly [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2' }).
 
 	aGame playNextTurn.
 	aGame playNextTurn.
@@ -212,7 +212,7 @@ FirstVersionTest >> testFV06GameIsPlayedWithTwoDice [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDiceRoller
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2' }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -244,7 +244,7 @@ FirstVersionTest >> testFV07GameWithRandomDie [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2' }).
 
 	self deny: aGame hasEnded.
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
@@ -281,7 +281,7 @@ FirstVersionTest >> testFV08GameWithTwoRandomDice [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2' }).
 
 	self deny: aGame hasEnded.
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
@@ -317,7 +317,7 @@ FirstVersionTest >> testFV09PlayerOneCanRollTheDiceAfterPlayerTwoTurn [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2' }).
 	aGame playNextTurn.
 	aGame playNextTurn.
 
@@ -352,7 +352,7 @@ FirstVersionTest >> testFV10TurnsWhenThreePlayersArePLaying [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	aGame playNextTurn.
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
@@ -390,7 +390,7 @@ FirstVersionTest >> testFV11WormholeGoesBackwards [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	aGame playNextTurn.
 
@@ -427,7 +427,7 @@ FirstVersionTest >> testFV12WormholeGoesForward [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	aGame playNextTurn.
 
@@ -459,7 +459,7 @@ FirstVersionTest >> testFV13WormholeIsNotOnANormalTile [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	aGame playNextTurn.
 

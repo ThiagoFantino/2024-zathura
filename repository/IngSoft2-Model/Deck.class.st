@@ -33,8 +33,18 @@ Deck >> isEmpty [
 	^ cards isEmpty
 ]
 
+{ #category : #accessing }
+Deck >> length [
+
+	^ cards size
+]
+
 { #category : #playing }
 Deck >> pick [
 
-	^cards atRandom
+	| cardToPick |
+	cards isEmpty ifTrue: [ Error signal: 'No cards to pick' ].
+	cardToPick := cards first.
+	cards remove: cardToPick.
+	^ cardToPick
 ]

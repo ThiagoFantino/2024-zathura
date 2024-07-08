@@ -24,14 +24,6 @@ CardPlayResolver >> cancelALeakCard: aCard [
 ]
 
 { #category : #resolving }
-CardPlayResolver >> cancelANitroCard [
-
-((game spaceshipCalled: 'Danny') nitroTurns) == 0
-		ifTrue: [
-		(game cardsHandOf: 'Danny') removeEffectOf: nitroCardPlayed ].
-]
-
-{ #category : #resolving }
 CardPlayResolver >> cancelANitroCard:spaceshipTurn [
 
 ((game spaceshipCalled: spaceshipTurn name) nitroTurns) == 0

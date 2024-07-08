@@ -128,6 +128,12 @@ Game >> cardsHandOf: aSpaceship [
 ]
 
 { #category : #'as yet unclassified' }
+Game >> deckLength [
+
+	^ deck length
+]
+
+{ #category : #'as yet unclassified' }
 Game >> decksHasToBeRedistributed [
 
 	^ deck isEmpty
@@ -147,11 +153,16 @@ Game >> endGameIfPossible [
 
 { #category : #playing }
 Game >> giveCardFromDeckTo: aSpaceship [
-
 	| card |
-	card := deck pick.
-	self addNewCard:  card to: aSpaceship name.
-	self redistributeDecks.
+	discardDeck
+		ifNotEmpty: [
+			card := deck pick.
+			self addNewCard: card to: aSpaceship name ]
+		ifEmpty: [
+			Error signal:
+				'It is not possible to pick a card until DiscardDeck it is not empty!' ].
+	self redistributeDecks
+	
 ]
 
 { #category : #testing }
@@ -210,15 +221,6 @@ Game >> redistributeDecks [
 
 	deck := Deck of: discardDeck.
 	discardDeck := OrderedCollection new
-]
-
-{ #category : #removing }
-Game >> removeEffectOf: aCard to: aSpaceship [
-	|filteredCardsHands|
-	filteredCardsHands := cardHands select: [ :cardsHand |
-		                      cardsHand spaceship=aSpaceship ].
-	filteredCardsHands do: [ :cardsHand |
-		cardsHand removeEffectOf: aCard].
 ]
 
 { #category : #removing }

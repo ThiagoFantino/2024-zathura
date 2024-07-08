@@ -27,7 +27,7 @@ SecondVersionTest >> testSV01PlayersStartAtLapOne [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -58,7 +58,7 @@ SecondVersionTest >> testSV02PlayerChangesLapAfterPassingTheLastTile [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
@@ -103,7 +103,7 @@ SecondVersionTest >> testSV03PlayersWinsAfterCompletingAnAmountOfLaps [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
@@ -185,7 +185,7 @@ SecondVersionTest >> testSV05EverySpaceshipStartsWithAmountOfFuelEqualToTheDoubl
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDiceRoller
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self
 		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
@@ -224,7 +224,7 @@ SecondVersionTest >> testSV06WhenASpaceshipMovesItHasLessFuel [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDiceRoller
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self
 		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
@@ -261,7 +261,7 @@ SecondVersionTest >> testSV07WhenASpaceshipRunsOutOfFuelItGoesBackToTileOneInLap
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -322,7 +322,7 @@ SecondVersionTest >> testSV08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self
 		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
@@ -393,7 +393,7 @@ SecondVersionTest >> testSV09SpaceshipSkipsTheirTurnToHaveMaxFuel [
 		         on: aBoard
 		         finishingAfter: 3
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self
 		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
@@ -447,7 +447,7 @@ SecondVersionTest >> testSV10LandingInAnEffectTileAfterBeingMovedByAnEffectDoesN
 		         on: aBoard
 		         finishingAfter: 3
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -483,7 +483,7 @@ SecondVersionTest >> testSV11Spaceship2IsTheFirstSpaceShipAtSpaceShipsRankingAsH
 		         on: aBoard
 		         finishingAfter: 3
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -532,7 +532,7 @@ SecondVersionTest >> testSV12BlackHoleEffectWhenSpaceShipHasEnoughFuelItGoesFour
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -579,7 +579,7 @@ SecondVersionTest >> testSV13BlackHoleEffectWhenSpaceShipRunsOutOfFuelItGoesToTh
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -637,7 +637,7 @@ SecondVersionTest >> testSV14BlackHoleEffectWhenSpaceShipIsInTheFirstThreeTilesI
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -685,7 +685,7 @@ SecondVersionTest >> testSV15SpaceshipEscapesOfTheHyperGravityEffectWhenItGetsAC
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -726,7 +726,7 @@ SecondVersionTest >> testSV16SpaceshipCannotEscapeFromTheHyperGravityEffectIfItD
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -767,7 +767,7 @@ SecondVersionTest >> testSV17MoonWalkEffectWhenSpaceShipHasEnoughFuelItGoesNTile
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -807,7 +807,7 @@ SecondVersionTest >> testSV18MoonWalkEffectWhenSpaceShipRunsOutOfFuelItGoesToThe
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -851,7 +851,7 @@ SecondVersionTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesIt
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -901,7 +901,7 @@ SecondVersionTest >> testSV20HyperJumpEffectAssignsParsecsToSpaceshipAndItGoesFo
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -937,7 +937,7 @@ SecondVersionTest >> testSV21AtomicBombEffectSendsAllSpaceshipsBackToTheFirstTil
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -994,7 +994,7 @@ SecondVersionTest >> testSV22SequenceDie [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
@@ -1018,7 +1018,7 @@ SecondVersionTest >> testSV22SequenceDie [
 { #category : #tests }
 SecondVersionTest >> testSV23GameWithRandomBoardAndRandomDie [
 
-	| aGame aBoard aDie1 unitsToMove someSpaceships effectDistribution randomCollection aDie2 aDiceRoller |
+	| aGame aBoard aDie1 unitsToMove someSpaceships effectDistribution randomCollection aDie2 aDiceRoller anAccelerationCard |
 	aDie1 := Die of: 3.
 	aDie2 := Die of: 4.
 	unitsToMove := OrderedCollection
@@ -1059,12 +1059,22 @@ SecondVersionTest >> testSV23GameWithRandomBoardAndRandomDie [
 
 	someSpaceships := { 'Danny'. 'Walter' }.
 
+	anAccelerationCard := AccelerationCard new.
+	
 	aGame := Game
 		         playedBy: someSpaceships
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDiceRoller
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: {
+			         anAccelerationCard.
+			         anAccelerationCard.
+					   anAccelerationCard.
+						anAccelerationCard.
+						anAccelerationCard.
+						anAccelerationCard }).
+	
+	aGame play:anAccelerationCard by:'Danny' targetting: 'all'.
 
 	self playUntilFinished: aGame.
 
