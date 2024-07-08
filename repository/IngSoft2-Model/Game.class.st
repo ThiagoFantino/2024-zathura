@@ -154,15 +154,14 @@ Game >> endGameIfPossible [
 { #category : #playing }
 Game >> giveCardFromDeckTo: aSpaceship [
 	| card |
-	discardDeck
-		ifNotEmpty: [
+	deck isEmpty
+		ifFalse: [
 			card := deck pick.
 			self addNewCard: card to: aSpaceship name ]
-		ifEmpty: [
+		ifTrue: [
 			Error signal:
-				'It is not possible to pick a card until DiscardDeck it is not empty!' ].
-	self redistributeDecks
-	
+				'It is not possible to pick a card because both decks are empty!' ].
+	self redistributeDecks.
 ]
 
 { #category : #testing }
