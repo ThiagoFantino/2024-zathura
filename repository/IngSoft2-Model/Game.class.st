@@ -70,6 +70,12 @@ Game >> addNewCard: aCard to:aPlayer [
 	(self cardsHandOf: aPlayer)  addToHand: aCard.
 ]
 
+{ #category : #removing }
+Game >> addToDiscardDeck: aCard [
+
+	discardDeck add: aCard
+]
+
 { #category : #accessing }
 Game >> anySpaceShipAtLastTileAndLap [
 
@@ -154,6 +160,7 @@ Game >> endGameIfPossible [
 { #category : #playing }
 Game >> giveCardFromDeckTo: aSpaceship [
 	| card |
+	self redistributeDecks.
 	deck isEmpty
 		ifFalse: [
 			card := deck pick.
@@ -227,7 +234,6 @@ Game >> removeFromHand: aCard to: aSpaceShip [
 
 	(self cardsHandOf:  aSpaceShip)
 		removeFromHand: aCard.
-	discardDeck add: aCard.
 	self redistributeDecks
 ]
 

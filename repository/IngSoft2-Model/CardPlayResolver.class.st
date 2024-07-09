@@ -66,15 +66,17 @@ CardPlayResolver >> resolve: aCardPlayed by: aPlayer targetting: anotherPalyer [
 { #category : #resolving }
 CardPlayResolver >> resolveACancellationCardPlay: aCard [
 
-	"game cancelTheEffectOf: cardTarget."
 	cardTarget cancelEffectUsing:self.
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer
+	game removeFromHand: aCard to: cardPlayer.
+	game addToDiscardDeck:aCard.
+	game addToDiscardDeck:cardTarget.
 ]
 
 { #category : #resolving }
 CardPlayResolver >> resolveALeakCardPlay: aCard [
 
+	game assertIsTurnOf: cardPlayer.
 	game activateLeakCardPenaltyOf:cardTarget.
 	lastCardPlayed := aCard.
 	game removeFromHand: aCard to: cardPlayer
@@ -87,7 +89,8 @@ CardPlayResolver >> resolveANitroCardPlay: aCard [
 	game activateNitroTurnsOf:cardTarget.
 	lastCardPlayed := aCard.
 	nitroCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer
+	game removeFromHand: aCard to: cardPlayer.
+	game addToDiscardDeck:aCard.
 ]
 
 { #category : #resolving }
@@ -103,7 +106,8 @@ CardPlayResolver >> resolveARepeatCardPlay: aCard [
 
 	game repeatLastEffectAppliedOn: cardTarget.
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer
+	game removeFromHand: aCard to: cardPlayer.
+	game addToDiscardDeck:aCard.
 ]
 
 { #category : #resolving }

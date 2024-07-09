@@ -47,15 +47,15 @@ FourthVersionTest >> testFV01DeckHasALimitedAmountOfCards [
 ]
 
 { #category : #tests }
-FourthVersionTest >> testFV02WhenACardIsUsedItGoesToTheDiscardDeck [
+FourthVersionTest >> testFV02WhenAnInstantCardIsUsedItGoesToTheDiscardDeck [
 
-	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard cardsDistribution cardsCollection |
+	| aGame aBoard aDie1 someSpaceships aDeck aNitroCard cardsDistribution cardsCollection |
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
 				          Null create.
 				          Null create.
-				          Null new.
+				          Null create.
 				          Null create.
 				          Null create.
 				          Null create.
@@ -63,11 +63,11 @@ FourthVersionTest >> testFV02WhenACardIsUsedItGoesToTheDiscardDeck [
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
-	anAccelerationCard := AccelerationCard new.
+	aNitroCard := NitroCard new.
 
 	cardsDistribution := Distribution with:
 		                     { (ProbabilityAssigner
-			                      with: anAccelerationCard
+			                      with: aNitroCard
 			                      and: 1) }.
 
 	cardsCollection := cardsDistribution randomCollectionWith: 5.
@@ -85,42 +85,40 @@ FourthVersionTest >> testFV02WhenACardIsUsedItGoesToTheDiscardDeck [
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
 	self assert: aGame discardDecklength equals: 0.
 
-	aGame play: anAccelerationCard by: 'Danny' targetting: 'all'.
+	aGame play: aNitroCard by: 'Danny' targetting: 'Danny'.
 
 	aGame playNextTurn.
 
-	aGame play: anAccelerationCard by: 'Walter' targetting: 'all'.
+	aGame play: aNitroCard by: 'Walter' targetting: 'Walter'.
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
 	self assert: aGame discardDecklength equals: 2
 ]
 
 { #category : #tests }
 FourthVersionTest >> testFV03WhenDeckIsEmptyDiscardDeckIsShuffledAndThatIsTheNewDeck [
 
-	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard cardsDistribution cardsCollection |
+	| aGame aBoard aDie1 someSpaceships aDeck aNitroCard cardsDistribution cardsCollection |
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
 				          Null create.
 				          Null create.
 				          Null create.
+				          Null create.
+				          Null create.
 				          CardGiver new.
-				          Null create.
-				          Null create.
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
-	anAccelerationCard := AccelerationCard new.
+	aNitroCard := NitroCard new.
 
 	cardsDistribution := Distribution with:
-		                     { (ProbabilityAssigner
-			                      with: anAccelerationCard
-			                      and: 1) }.
+		                     { (ProbabilityAssigner with: aNitroCard and: 1) }.
 
 	cardsCollection := cardsDistribution randomCollectionWith: 5.
 
@@ -138,7 +136,7 @@ FourthVersionTest >> testFV03WhenDeckIsEmptyDiscardDeckIsShuffledAndThatIsTheNew
 	self assert: aGame deckLength equals: 1.
 	self assert: aGame discardDecklength equals: 0.
 
-	aGame play: anAccelerationCard by: 'Danny' targetting: 'all'.
+	aGame play: aNitroCard by: 'Danny' targetting: 'Danny'.
 
 	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 1.
 	self assert: aGame deckLength equals: 1.
@@ -146,7 +144,7 @@ FourthVersionTest >> testFV03WhenDeckIsEmptyDiscardDeckIsShuffledAndThatIsTheNew
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
 	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 2.
 	self assert: aGame deckLength equals: 1.
 	self assert: aGame discardDecklength equals: 0
@@ -608,7 +606,7 @@ FourthVersionTest >> testFV10WhenDeckIsEmptyAndDiscardDeckIsEmptyNoCardsCanBeTak
 { #category : #tests }
 FourthVersionTest >> testFV11WhenDiscardDeckIsEmptyAndACardFromDeckIsUsedBothEndUpEmpty [
 
-	| aGame aBoard aDie1 someSpaceships aDeck anAllyCard cardsDistribution cardsCollection |
+	| aGame aBoard aDie1 someSpaceships aDeck aNitroCard cardsDistribution cardsCollection |
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
@@ -622,10 +620,10 @@ FourthVersionTest >> testFV11WhenDiscardDeckIsEmptyAndACardFromDeckIsUsedBothEnd
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 3. 3. 2. 2. 6 }.
 
-	anAllyCard := AllyCard new.
+	aNitroCard := NitroCard new.
 
 	cardsDistribution := Distribution with:
-		                     { (ProbabilityAssigner with: anAllyCard and: 1) }.
+		                     { (ProbabilityAssigner with: aNitroCard and: 1) }.
 
 	cardsCollection := cardsDistribution randomCollectionWith: 4.
 
@@ -642,14 +640,331 @@ FourthVersionTest >> testFV11WhenDiscardDeckIsEmptyAndACardFromDeckIsUsedBothEnd
 	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 2.
 	self assert: aGame deckLength equals: 0.
 	self assert: aGame discardDecklength equals: 0.
-	
-	aGame play:anAllyCard by:'Danny' targetting: 'Walter'.
 
-	self assert: aGame deckLength equals: 1.
+	aGame play: aNitroCard by: 'Danny' targetting: 'Walter'.
+
+	self assert: aGame deckLength equals: 0.
+	self assert: aGame discardDecklength equals: 1.
+
+	aGame playNextTurn.
+	self assert: aGame deckLength equals: 0.
+	self assert: aGame discardDecklength equals: 0
+]
+
+{ #category : #tests }
+FourthVersionTest >> testFV12OverloadCardGoesToDiscardDeckWhenItIsCancelled [
+
+	| aGame aBoard aDie1 someSpaceships aDeck anOverloadCard aCancellationCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
+
+	anOverloadCard := OverloadCard new.
+	aCancellationCard := CancellationCard new.
+
+	aDeck := LoadedDeck of: {
+			         anOverloadCard.
+			         aCancellationCard.
+			         anOverloadCard.
+			         aCancellationCard.
+			         anOverloadCard }.
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	aGame play: anOverloadCard by: 'Danny' targetting: 'Walter'.
 	self assert: aGame discardDecklength equals: 0.
 
 	aGame playNextTurn.
-	
-	self assert: aGame deckLength equals: 0.
+	aGame playNextTurn.
+
+	aGame play: aCancellationCard by: 'Danny' targetting: anOverloadCard.
+	self assert: aGame discardDecklength equals: 2
+]
+
+{ #category : #tests }
+FourthVersionTest >> testFV13AllyCardGoesToDiscardDeckWhenItIsCancelled [
+
+	| aGame aBoard aDie1 someSpaceships aDeck anAllyCard aCancellationCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
+
+	anAllyCard := AllyCard new.
+	aCancellationCard := CancellationCard new.
+
+	aDeck := LoadedDeck of: {
+			         anAllyCard.
+			         aCancellationCard.
+			         anAllyCard.
+			         aCancellationCard.
+			         anAllyCard.}.
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	aGame play: anAllyCard by: 'Danny' targetting: 'Walter'.
 	self assert: aGame discardDecklength equals: 0.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	aGame play: aCancellationCard by: 'Danny' targetting: anAllyCard.
+	self assert: aGame discardDecklength equals: 2
+]
+
+{ #category : #tests }
+FourthVersionTest >> testFV14AccelerationCardGoesToDiscardDeckWhenItIsCancelled [
+
+	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard aCancellationCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
+
+	anAccelerationCard := AccelerationCard new.
+	aCancellationCard := CancellationCard new.
+
+	aDeck := LoadedDeck of: {
+			         anAccelerationCard.
+			         aCancellationCard.
+			         anAccelerationCard.
+			         aCancellationCard.
+			         anAccelerationCard.}.
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	aGame play: anAccelerationCard by: 'Danny' targetting: 'Walter'.
+	self assert: aGame discardDecklength equals: 0.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	aGame play: aCancellationCard by: 'Danny' targetting: anAccelerationCard.
+	self assert: aGame discardDecklength equals: 2
+]
+
+{ #category : #tests }
+FourthVersionTest >> testFV15LeakCardGoesToDiscardDeckWhenItIsCancelled [
+
+	| aGame aBoard aDie1 someSpaceships aDeck aLeakCard aCancellationCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
+
+	aLeakCard := LeakCard new.
+	aCancellationCard := CancellationCard new.
+
+	aDeck := LoadedDeck of: {
+			         aLeakCard.
+			         aCancellationCard.
+			         aLeakCard.
+			         aCancellationCard.
+			         aLeakCard.}.
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	aGame play: aLeakCard by: 'Danny' targetting: 'Walter'.
+	self assert: aGame discardDecklength equals: 0.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	aGame play: aCancellationCard by: 'Danny' targetting: aLeakCard.
+	self assert: aGame discardDecklength equals: 2
+]
+
+{ #category : #tests }
+FourthVersionTest >> testFV16RepeatCardGoesToDiscardDeckAfterItIsUsed [
+
+	| aGame aBoard aDie1 someSpaceships aDeck aRepeatCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          BlackHole new.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 6. 5. 3. 3. 20 }.
+
+	aRepeatCard := RepeatCard new.
+
+	aDeck := LoadedDeck of: {
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard }.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+
+
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
+
+
+	aGame play: aRepeatCard by: 'Walter' targetting: 'Danny'.
+	self assert: aGame discardDecklength equals: 1.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2
+]
+
+{ #category : #tests }
+FourthVersionTest >> testFV17RedoCardDiscardWhenItCopiesAPermanentCard [
+
+	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard aRedoCard aCancellationCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 3. 3. 3. 3. 6 }.
+
+	anAccelerationCard := AccelerationCard new.
+	aRedoCard := RedoCard new.
+	aCancellationCard := CancellationCard new.
+
+	aDeck := LoadedDeck of: {
+			         anAccelerationCard.
+			         aCancellationCard.
+			         aRedoCard.
+			         aCancellationCard }.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+
+
+
+	aGame play: anAccelerationCard by: 'Danny' targetting: 'all'.
+	self assert: aGame discardDecklength equals: 0.
+
+	aGame playNextTurn.
+
+	aGame play: aRedoCard by: 'Walter' targetting: 'all'.
+	self assert: aGame discardDecklength equals: 0.
+
+	aGame
+		play: aCancellationCard
+		by: 'Danny'
+		targetting: anAccelerationCard.
+	self assert: aGame discardDecklength equals: 2
+]
+
+{ #category : #tests }
+FourthVersionTest >> testFV18LeakCardCannotBePlayedWhenItIsNotSpaceshipTurnAsItIsAPermanentCard [
+
+	| aGame aBoard aDie1 someSpaceships aDeck aLeakCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 3. 3. 3. 3. 6 }.
+
+	aLeakCard := LeakCard new.
+
+	aDeck := LoadedDeck of: {
+			         aLeakCard.
+			         aLeakCard.
+			         aLeakCard.
+			         aLeakCard }.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+
+	self
+		should: [ aGame play: aLeakCard by: 'Walter' targetting: 'Danny' ]
+		raise: Error
+		withMessage: 'It is not your turn'
 ]
