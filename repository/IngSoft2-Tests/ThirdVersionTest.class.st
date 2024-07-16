@@ -1057,7 +1057,7 @@ ThirdVersionTest >> testTV21WhenSpaceshipUsesRepeatCardAfterAnatomicBombItTrigge
 				          AtomicBomb new.
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
-	aDie1 := LoadedDie of: { 4. 4. 1. 1. 20 }.
+	aDie1 := LoadedDie of: { 6. 5. 3. 3. 20 }.
 
 	aRepeatCard := RepeatCard new.
 
@@ -1079,19 +1079,20 @@ ThirdVersionTest >> testTV21WhenSpaceshipUsesRepeatCardAfterAnatomicBombItTrigge
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
 
-	aGame playNextTurn.
-	aGame playNextTurn.
-
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
 
 	aGame playNextTurn.
-
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
+	aGame playNextTurn.
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
 
-	aGame play: aRepeatCard by: 'Walter' targetting: 'Danny'.
+	(aGame spaceshipCalled: 'Walter')
+		movePositionBy: 4
+		lapBy: 0
+		neededFuel: 0.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
 
+	aGame play: aRepeatCard by: 'Walter' targetting: 'Danny'.
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1
 ]
