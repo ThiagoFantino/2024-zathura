@@ -119,7 +119,7 @@ Game >> cancelTheEffectOf: aPermanentCard [
 	|filteredCardsHands|
 	filteredCardsHands := cardHands select: [ :cardsHand |
 		                      cardsHand affectsSpaceShip: aPermanentCard ].
-	self validateIfIsPossibleToCancelACard: filteredCardsHands.
+	self validateCancellationOf: filteredCardsHands.
 	filteredCardsHands do: [ :cardsHand |
 		cardsHand removeEffectOf: aPermanentCard ].
 ]
@@ -131,6 +131,12 @@ Game >> cardsHandOf: aSpaceship [
 	spaceshipCardHandler := cardHands detect: [ :handler |
 		                        handler spaceship name = aSpaceship ].
 	^ spaceshipCardHandler
+]
+
+{ #category : #asserting }
+Game >> checkEndGame [
+
+	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -149,12 +155,6 @@ Game >> decksHasToBeRedistributed [
 Game >> discardDecklength [
 
 	^ discardDeck size
-]
-
-{ #category : #asserting }
-Game >> endGameIfPossible [
-
-	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ]
 ]
 
 { #category : #playing }
@@ -217,7 +217,7 @@ Game >> playNextTurn [
 	board move: spaceshipTurn by: rollingResult + rollModifier.
 	effectManager applyEffectOnLandingShip: spaceshipTurn.
 	cardPlayResolver cancelANitroCard:spaceshipTurn.
-	self endGameIfPossible
+	self checkEndGame
 ]
 
 { #category : #'as yet unclassified' }
@@ -307,7 +307,7 @@ Game >> validate: aSpaceship has: aCard [
 ]
 
 { #category : #asserting }
-Game >> validateIfIsPossibleToCancelACard: cardsHandCollection [
+Game >> validateCancellationOf: cardsHandCollection [
 
 	cardsHandCollection isEmpty ifTrue: [
 		Error signal: 'There is no CardsHand with the card to be removed' ]
