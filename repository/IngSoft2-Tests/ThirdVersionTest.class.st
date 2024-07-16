@@ -1256,9 +1256,9 @@ ThirdVersionTest >> testTV24WhenSpaceshipUsesRepeatCardAfterAHyperGravityItTrigg
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
 
-	
-	aGame play: aRepeatCard by:'Walter'  targetting:'Walter'. 
-	
+
+	aGame play: aRepeatCard by: 'Danny' targetting: 'Walter'.
+
 	aGame playNextTurn.
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1273,10 +1273,7 @@ ThirdVersionTest >> testTV24WhenSpaceshipUsesRepeatCardAfterAHyperGravityItTrigg
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
 	aGame playNextTurn.
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 8.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
-
-
-
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5
 ]
 
 { #category : #tests }
