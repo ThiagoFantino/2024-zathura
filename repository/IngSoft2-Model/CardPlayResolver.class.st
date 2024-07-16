@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'game',
 		'lastCardPlayed',
-		'cardPlayer',
+		'cardUser',
 		'cardTarget',
 		'nitroCardPlayed'
 	],
@@ -56,10 +56,10 @@ CardPlayResolver >> initializeWith: aGame [
 ]
 
 { #category : #resolving }
-CardPlayResolver >> resolve: aCardPlayed by: aPlayer targetting: anotherPalyer [
+CardPlayResolver >> resolve: aCardPlayed by: aSpaceship targetting: anotherSpaceship [
 
-	cardPlayer := aPlayer.
-	cardTarget := anotherPalyer.
+	cardUser := aSpaceship.
+	cardTarget := anotherSpaceship.
 	aCardPlayed uses: self
 ]
 
@@ -68,7 +68,7 @@ CardPlayResolver >> resolveACancellationCardPlay: aCard [
 
 	cardTarget cancelEffectUsing: self.
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer.
+	game removeFromHand: aCard to: cardUser.
 	game addToDiscardDeck: aCard.
 	game addToDiscardDeck: cardTarget
 ]
@@ -76,10 +76,10 @@ CardPlayResolver >> resolveACancellationCardPlay: aCard [
 { #category : #resolving }
 CardPlayResolver >> resolveALeakCardPlay: aCard [
 
-	game assertIsTurnOf: cardPlayer.
+	game assertIsTurnOf: cardUser.
 	game activateLeakCardPenaltyOf: cardTarget.
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer
+	game removeFromHand: aCard to: cardUser
 ]
 
 { #category : #resolving }
@@ -89,16 +89,16 @@ CardPlayResolver >> resolveANitroCardPlay: aCard [
 	game activateNitroTurnsOf: cardTarget.
 	lastCardPlayed := aCard.
 	nitroCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer.
+	game removeFromHand: aCard to: cardUser.
 	game addToDiscardDeck: aCard
 ]
 
 { #category : #resolving }
 CardPlayResolver >> resolveARedoCardPlay: aCard [
 
-	game addNewCard: lastCardPlayed to: cardPlayer.
-	game play: lastCardPlayed by: cardPlayer targetting: cardTarget.
-	game removeFromHand: aCard to: cardPlayer
+	game addNewCard: lastCardPlayed to: cardUser.
+	game play: lastCardPlayed by: cardUser targetting: cardTarget.
+	game removeFromHand: aCard to: cardUser
 ]
 
 { #category : #resolving }
@@ -106,35 +106,35 @@ CardPlayResolver >> resolveARepeatCardPlay: aCard [
 
 	game repeatLastEffectAppliedOn: cardTarget.
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer.
+	game removeFromHand: aCard to: cardUser.
 	game addToDiscardDeck: aCard
 ]
 
 { #category : #resolving }
 CardPlayResolver >> resolveAnAccelerationCardPlay: aCard [
 
-	game assertIsTurnOf: cardPlayer.
+	game assertIsTurnOf: cardUser.
 	game applyToAllSpaceShips: aCard.
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer
+	game removeFromHand: aCard to: cardUser
 ]
 
 { #category : #resolving }
 CardPlayResolver >> resolveAnAllyCardPlay: aCard [
 
-	game assertIsTurnOf: cardPlayer.
-	game setAnAllianceBewtween: cardPlayer and: cardTarget.
-	game applyACardEffect: aCard to: cardPlayer.
+	game assertIsTurnOf: cardUser.
+	game setAnAllianceBewtween: cardUser and: cardTarget.
+	game applyACardEffect: aCard to: cardUser.
 	game applyACardEffect: aCard to: cardTarget.
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer
+	game removeFromHand: aCard to: cardUser
 ]
 
 { #category : #resolving }
 CardPlayResolver >> resolveAnOverloadCardPlay: aCard [
 
-	game assertIsTurnOf: cardPlayer.
+	game assertIsTurnOf: cardUser.
 	game applyACardEffect: aCard to: cardTarget.
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer
+	game removeFromHand: aCard to: cardUser
 ]

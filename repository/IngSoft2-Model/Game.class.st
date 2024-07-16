@@ -20,7 +20,7 @@ Class {
 Game class >> assertValidNumberOf: someSpaceShips [
 
 	someSpaceShips isEmpty ifTrue: [
-		Error signal: 'Game must have at least one player' ]
+		Error signal: 'Game must have at least one spaceship' ]
 ]
 
 { #category : #'instance creation' }
@@ -66,8 +66,9 @@ Game >> activateNitroTurnsOf: cardTarget [
 ]
 
 { #category : #accessing }
-Game >> addNewCard: aCard to:aPlayer [
-	(self cardsHandOf: aPlayer)  addToHand: aCard.
+Game >> addNewCard: aCard to: aSpaceship [
+
+	(self cardsHandOf: aSpaceship) addToHand: aCard
 ]
 
 { #category : #removing }
@@ -189,7 +190,7 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard finishingAfter: laps rolli
 	cardHands := spaceships collect: [ :spaceShip |
 		             CardsHand of: spaceShip using: aDeck ].
 	cardPlayResolver := CardPlayResolver with: self.
-	turnHandler := TurnHandler withPlayers: someSpaceShips.
+	turnHandler := TurnHandler with: someSpaceShips.
 	effectManager := EffectManager
 		                 usedIn: self
 		                 with: aBoard
@@ -198,10 +199,13 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard finishingAfter: laps rolli
 ]
 
 { #category : #'target resize' }
-Game >> play: aCard by:aPlayer targetting: anotherPlayer [
-	self validate: aPlayer  has: aCard .
-	cardPlayResolver resolve: aCard by: aPlayer  targetting: anotherPlayer.
-	
+Game >> play: aCard by: aSpaceship targetting: anotherSpaceship [
+
+	self validate: aSpaceship has: aCard.
+	cardPlayResolver
+		resolve: aCard
+		by: aSpaceship
+		targetting: anotherSpaceship
 ]
 
 { #category : #playing }

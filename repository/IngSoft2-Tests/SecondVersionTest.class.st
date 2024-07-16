@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #tests }
-SecondVersionTest >> testSV01PlayersStartAtLapOne [
+SecondVersionTest >> testSV01SpaceshipsStartAtLapOne [
 
 	| aGame aBoard aDie1 someSpaceships |
 	aBoard := Board
@@ -36,7 +36,7 @@ SecondVersionTest >> testSV01PlayersStartAtLapOne [
 ]
 
 { #category : #tests }
-SecondVersionTest >> testSV02PlayerChangesLapAfterPassingTheLastTile [
+SecondVersionTest >> testSV02SpaceshipChangesLapAfterPassingTheLastTile [
 
 	| aGame aBoard aDie1 someSpaceships |
 	aBoard := Board
@@ -83,7 +83,7 @@ SecondVersionTest >> testSV02PlayerChangesLapAfterPassingTheLastTile [
 ]
 
 { #category : #tests }
-SecondVersionTest >> testSV03PlayersWinsAfterCompletingAnAmountOfLaps [
+SecondVersionTest >> testSV03SpaceshipWinsAfterCompletingAnAmountOfLaps [
 
 	| aGame aBoard aDie1 someSpaceships |
 	aBoard := Board

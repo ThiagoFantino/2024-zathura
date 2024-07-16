@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #tests }
-FirstVersionTest >> testFV01GameMustHaveAtLeastOnePlayer [
+FirstVersionTest >> testFV01GameMustHaveAtLeastOneSpaceship [
 
 	| aBoard aDie1 |
 	aBoard := Board
@@ -31,7 +31,7 @@ FirstVersionTest >> testFV01GameMustHaveAtLeastOnePlayer [
 				rolling: aDie1
 				usingCardsFrom: { 'card1.'. 'card2.' } ]
 		raise: Error
-		withMessage: 'Game must have at least one player'
+		withMessage: 'Game must have at least one spaceship'
 ]
 
 { #category : #tests }
@@ -295,7 +295,7 @@ FirstVersionTest >> testFV08GameWithTwoRandomDice [
 ]
 
 { #category : #tests }
-FirstVersionTest >> testFV09PlayerOneCanRollTheDiceAfterPlayerTwoTurn [
+FirstVersionTest >> testFV09SpaceshipOneCanRollTheDiceAfterSpaceshipTwoTurn [
 
 	| aGame aBoard aDie1 someSpaceships |
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -328,7 +328,7 @@ FirstVersionTest >> testFV09PlayerOneCanRollTheDiceAfterPlayerTwoTurn [
 ]
 
 { #category : #tests }
-FirstVersionTest >> testFV10TurnsWhenThreePlayersArePLaying [
+FirstVersionTest >> testFV10TurnsWhenThreeSpaceshipsArePlaying [
 
 	| aGame aBoard aDie1 someSpaceships |
 	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
