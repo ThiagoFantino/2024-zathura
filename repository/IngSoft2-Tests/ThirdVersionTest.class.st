@@ -417,7 +417,7 @@ ThirdVersionTest >> testTV09WhenSpaceshipUsesReDoCardItHasTheEffectOfTheLastPlay
 { #category : #tests }
 ThirdVersionTest >> testTV10WhenSpaceshipUsesRepeatCardItHasTheEffectOfTheLastPlayedTile [
 
-	| aGame aBoard aDie1 someSpaceships aDeck aRepeatCard  |
+	| aGame aBoard aDie1 someSpaceships aDeck aRepeatCard |
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
@@ -457,11 +457,11 @@ ThirdVersionTest >> testTV10WhenSpaceshipUsesRepeatCardItHasTheEffectOfTheLastPl
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
 
 
-	
-	aGame play:aRepeatCard  by: 'Danny' targetting: 'Walter'.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2
+	aGame play: aRepeatCard by: 'Danny' targetting: 'Danny'.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1
 ]
 
 { #category : #tests }
