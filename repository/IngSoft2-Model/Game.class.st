@@ -10,7 +10,8 @@ Class {
 		'deck',
 		'cardHands',
 		'cardPlayResolver',
-		'effectManager'
+		'effectManager',
+		'discardDeck'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -19,7 +20,7 @@ Class {
 Game class >> assertValidNumberOf: someSpaceShips [
 
 	someSpaceShips isEmpty ifTrue: [
-		Error signal: 'Game must have at least one player' ]
+		Error signal: 'Game must have at least one spaceship' ]
 ]
 
 { #category : #'instance creation' }
@@ -32,7 +33,7 @@ Game class >> assertValidNumberOfLaps: laps [
 Game class >> createSpaceshipsUsing: spaceshipNames withMaxFuel: anAmount [
 
 	^ spaceshipNames collect: [ :spaceship |
-		  SpaceShip named: spaceship withMaxFuel: 2 * anAmount ]
+		  SpaceShip called: spaceship withMaxFuel: 2 * anAmount ]
 ]
 
 { #category : #'instance creation' }
@@ -52,27 +53,47 @@ Game class >> playedBy: someSpaceShips on: aBoard finishingAfter: laps rolling: 
 		  usingCardsFrom: aDeck
 ]
 
+{ #category : #activation }
+Game >> activateLeakCardPenaltyOf: cardTarget [
+
+	(self spaceshipCalled: cardTarget) activateLeakCardPenalty
+]
+
+{ #category : #activation }
+Game >> activateNitroTurnsOf: cardTarget [
+
+	(self spaceshipCalled: cardTarget) assignNitroTurns: 3
+]
+
 { #category : #accessing }
-Game >> addNewCard: aCard to:aPlayer [
-	(self cardsHandOf: aPlayer)  addToHand: aCard.
+Game >> addNew: aCard to: aSpaceship [
+
+	(self cardsHandOf: aSpaceship) addToHand: aCard
+]
+
+{ #category : #removing }
+Game >> addToDiscardDeck: aCard [
+
+	discardDeck add: aCard
 ]
 
 { #category : #accessing }
 Game >> anySpaceShipAtLastTileAndLap [
 
 	^ spaceships anySatisfy: [ :aSpaceship |
-		  board laps + 1 = aSpaceship lap and: [ 1 = aSpaceship position ] ]
+		  board laps + 1 = aSpaceship lap and: [ 1 = aSpaceship tileNumber ] ]
 ]
 
 { #category : #testing }
-Game >> applyACardEffect: aCard to:aSpaceship [
-	(self cardsHandOf: aSpaceship) addEffectOf: aCard.
+Game >> applyACardEffect: aCard to: aSpaceship [
+
+	(self cardsHandOf: aSpaceship) addEffectOf: aCard
 ]
 
 { #category : #testing }
 Game >> applyToAllSpaceShips: aCardEffect [
-	cardHands do: [ :cardHand |
-		cardHand addEffectOf: aCardEffect ]
+
+	cardHands do: [ :cardHand | cardHand addEffectOf: aCardEffect ]
 ]
 
 { #category : #asserting }
@@ -92,17 +113,25 @@ Game >> assignRewardForMaxRollFor: aSpaceship [
 	randomNumber = 1
 		ifTrue: [ aSpaceship fuelTank increaseMaxFuelByOne ]
 		ifFalse: [ aSpaceship fuelTank decreaseFuelBy: 1 ]
+]
 
+{ #category : #accessing }
+Game >> cancel: nitroCardPlayed of: spaceshipTurn [
+
+	(self spaceshipCalled: spaceshipTurn name) nitroTurns == 0 ifTrue: [
+		(self cardsHandOf: spaceshipTurn name) removeEffectOf:
+			nitroCardPlayed ]
 ]
 
 { #category : #accessing }
 Game >> cancelTheEffectOf: aPermanentCard [
-	|filteredCardsHands|
+
+	| filteredCardsHands |
 	filteredCardsHands := cardHands select: [ :cardsHand |
 		                      cardsHand affectsSpaceShip: aPermanentCard ].
-	self validateIfIsPossibleToCancelACard: filteredCardsHands.
+	self validateCancellationOf: filteredCardsHands.
 	filteredCardsHands do: [ :cardsHand |
-		cardsHand removeEffectOf: aPermanentCard ].
+		cardsHand removeEffectOf: aPermanentCard ]
 ]
 
 { #category : #accessing }
@@ -114,18 +143,50 @@ Game >> cardsHandOf: aSpaceship [
 	^ spaceshipCardHandler
 ]
 
+{ #category : #playing }
+Game >> check: rollingResult ToAssignRewardForMaxRollTo: spaceshipTurn [
+
+	rollingResult = diceCollection maxRoll ifTrue: [
+		self assignRewardForMaxRollFor: spaceshipTurn ]
+]
+
 { #category : #asserting }
-Game >> endGameIfPossible [
+Game >> checkEndGame [
 
 	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ]
+]
+
+{ #category : #accessing }
+Game >> deckLength [
+
+	^ deck length
+]
+
+{ #category : #playing }
+Game >> decksHasToBeRedistributed [
+
+	^ deck isEmpty
+]
+
+{ #category : #initialization }
+Game >> discardDecklength [
+
+	^ discardDeck size
 ]
 
 { #category : #playing }
 Game >> giveCardFromDeckTo: aSpaceship [
 
 	| card |
-	card := deck pick.
-	self addNewCard:  card to: aSpaceship name.
+	self redistributeDecks.
+	deck isEmpty
+		ifFalse: [
+			card := deck pick.
+			self addNew: card to: aSpaceship name ]
+		ifTrue: [
+			Error signal:
+				'It is not possible to pick a card because both decks are empty!' ].
+	self redistributeDecks
 ]
 
 { #category : #testing }
@@ -146,18 +207,22 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard finishingAfter: laps rolli
 	cardHands := spaceships collect: [ :spaceShip |
 		             CardsHand of: spaceShip using: aDeck ].
 	cardPlayResolver := CardPlayResolver with: self.
-	turnHandler := TurnHandler withPlayers: someSpaceShips.
+	turnHandler := TurnHandler with: someSpaceShips.
 	effectManager := EffectManager
 		                 usedIn: self
 		                 with: aBoard
-		                 affecting: someSpaceShips
+		                 affecting: someSpaceShips.
+	discardDeck := OrderedCollection new
 ]
 
 { #category : #'target resize' }
-Game >> play: aCard by:aPlayer targetting: anotherPlayer [
-	self validate: aPlayer  has: aCard .
-	cardPlayResolver resolve: aCard by: aPlayer  targetting: anotherPlayer.
-	
+Game >> play: aCard by: aSpaceship targetting: anotherSpaceship [
+
+	self validate: aSpaceship has: aCard.
+	cardPlayResolver
+		resolve: aCard
+		by: aSpaceship
+		targetting: anotherSpaceship
 ]
 
 { #category : #playing }
@@ -167,24 +232,35 @@ Game >> playNextTurn [
 	self hasEnded ifTrue: [ Error signal: 'Game has already ended' ].
 	spaceshipTurn := turnHandler nextSpaceshipTurn.
 	rollingResult := spaceshipTurn rollDiceUsing: diceCollection.
-	rollingResult = diceCollection maxRoll ifTrue: [
-		self assignRewardForMaxRollFor: spaceshipTurn ].
+	self check: rollingResult ToAssignRewardForMaxRollTo: spaceshipTurn.
 	rollModifier := self rollModifierFor: spaceshipTurn.
 	board move: spaceshipTurn by: rollingResult + rollModifier.
-	effectManager applyEffectOnLandingShip: spaceshipTurn.
-	self endGameIfPossible
+	effectManager applyEffectOn: spaceshipTurn.
+	cardPlayResolver cancelNitro: spaceshipTurn.
+	self checkEndGame
+]
+
+{ #category : #playing }
+Game >> redistributeDecks [
+
+	self decksHasToBeRedistributed ifFalse: [ ^ self ].
+
+	deck initializeOf: discardDeck.
+	discardDeck := OrderedCollection new
 ]
 
 { #category : #removing }
 Game >> removeFromHand: aCard to: aSpaceShip [
 
-	(self cardsHandOf:  aSpaceShip)
-		removeFromHand: aCard
+	(self cardsHandOf: aSpaceShip) removeFromHand: aCard.
+	self redistributeDecks
 ]
 
 { #category : #accessing }
 Game >> repeatLastEffectAppliedOn: aSpaceshipName [
-	effectManager repeatLastEffectAppliedOn: (self spaceshipCalled: aSpaceshipName).
+
+	effectManager repeatLastEffectAppliedOn:
+		(self spaceshipCalled: aSpaceshipName)
 ]
 
 { #category : #playing }
@@ -197,17 +273,23 @@ Game >> rollModifierFor: aSpaceShip [
 Game >> setAllyToNil [
 
 	spaceships do: [ :spaceship | spaceship setAllyToNil ]
-
 ]
 
 { #category : #'target resize' }
 Game >> setAnAllianceBewtween: aSpaceShip and: anotherSpaceShip [
-	|spaceship1 spaceship2|
+
+	| spaceship1 spaceship2 |
 	spaceship1 := self spaceshipCalled: aSpaceShip.
 	spaceship2 := self spaceshipCalled: anotherSpaceShip.
 
 	spaceship1 isAlliedWith: spaceship2.
-	spaceship2 isAlliedWith: spaceship1.
+	spaceship2 isAlliedWith: spaceship1
+]
+
+{ #category : #initialization }
+Game >> setLeakToFalse [
+
+	spaceships do: [ :spaceship | spaceship setLeakToFalse ]
 ]
 
 { #category : #asserting }
@@ -223,9 +305,9 @@ Game >> spaceShipsPositionsRanking [
 	spaceShipsPositions := spaceships.
 
 	^ spaceShipsPositions asSortedCollection: [ :spaceShipA :spaceShipB |
-		  spaceShipA lap - 1 * board amountOfTiles + spaceShipA position
+		  spaceShipA lap - 1 * board amountOfTiles + spaceShipA tileNumber
 		  >=
-		  (spaceShipB lap - 1 * board amountOfTiles + spaceShipB position) ]
+		  (spaceShipB lap - 1 * board amountOfTiles + spaceShipB tileNumber) ]
 ]
 
 { #category : #asserting }
@@ -238,14 +320,14 @@ Game >> spaceshipCalled: aName [
 Game >> validate: aSpaceship has: aCard [
 
 	| cardsHand |
-	cardsHand := self cardsHandOf: aSpaceship .
+	cardsHand := self cardsHandOf: aSpaceship.
 	(cardsHand hasInHand: aCard) ifFalse: [
 		Error signal:
 			'Spaceship cannot throw this card because he does not have it' ]
 ]
 
 { #category : #asserting }
-Game >> validateIfIsPossibleToCancelACard: cardsHandCollection [
+Game >> validateCancellationOf: cardsHandCollection [
 
 	cardsHandCollection isEmpty ifTrue: [
 		Error signal: 'There is no CardsHand with the card to be removed' ]
@@ -258,7 +340,7 @@ Game >> winner [
 	self hasEnded ifFalse: [ ^ self hasEnded ].
 
 	winner := spaceships detect: [ :aSpaceship |
-		          aSpaceship position = 1 and: [
+		          aSpaceship tileNumber = 1 and: [
 			          aSpaceship lap = (board laps + 1) ] ].
 	^ winner
 ]

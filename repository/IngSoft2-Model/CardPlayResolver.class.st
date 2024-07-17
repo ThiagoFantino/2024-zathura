@@ -4,8 +4,9 @@ Class {
 	#instVars : [
 		'game',
 		'lastCardPlayed',
-		'cardPlayer',
-		'cardTarget'
+		'cardUser',
+		'cardTarget',
+		'nitroCardPlayed'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -17,19 +18,33 @@ CardPlayResolver class >> with: aGame [
 ]
 
 { #category : #resolving }
-CardPlayResolver >> cancelAnAccelerationCard: aCard [
+CardPlayResolver >> cancelAcceleration: aCard [
+
 	game cancelTheEffectOf: aCard
 ]
 
 { #category : #resolving }
-CardPlayResolver >> cancelAnAllyCard: aCard [
+CardPlayResolver >> cancelAlly: aCard [
 
-game setAllyToNil.
+	game setAllyToNil
 ]
 
 { #category : #resolving }
-CardPlayResolver >> cancelAnOverloadCard: aCard [
-	game cancelTheEffectOf:aCard
+CardPlayResolver >> cancelLeak: aCard [
+
+	game setLeakToFalse
+]
+
+{ #category : #resolving }
+CardPlayResolver >> cancelNitro: spaceshipTurn [
+
+	game cancel: nitroCardPlayed of: spaceshipTurn
+]
+
+{ #category : #resolving }
+CardPlayResolver >> cancelOverload: aCard [
+
+	game cancelTheEffectOf: aCard
 ]
 
 { #category : #initialization }
@@ -39,28 +54,49 @@ CardPlayResolver >> initializeWith: aGame [
 ]
 
 { #category : #resolving }
-CardPlayResolver >> resolve: aCardPlayed by: aPlayer targetting: anotherPalyer [
+CardPlayResolver >> resolve: aCardPlayed by: aSpaceship targetting: anotherSpaceship [
 
-	cardPlayer := aPlayer.
-	cardTarget := anotherPalyer.
+	cardUser := aSpaceship.
+	cardTarget := anotherSpaceship.
 	aCardPlayed uses: self
 ]
 
 { #category : #resolving }
 CardPlayResolver >> resolveACancellationCardPlay: aCard [
 
-	"game cancelTheEffectOf: cardTarget."
-	cardTarget cancelEffectUsing:self.
+	cardTarget cancelEffectUsing: self.
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer
+	game removeFromHand: aCard to: cardUser.
+	game addToDiscardDeck: aCard.
+	game addToDiscardDeck: cardTarget
+]
+
+{ #category : #resolving }
+CardPlayResolver >> resolveALeakCardPlay: aCard [
+
+	game assertIsTurnOf: cardUser.
+	game activateLeakCardPenaltyOf: cardTarget.
+	lastCardPlayed := aCard.
+	game removeFromHand: aCard to: cardUser
+]
+
+{ #category : #resolving }
+CardPlayResolver >> resolveANitroCardPlay: aCard [
+
+	game applyACardEffect: aCard to: cardTarget.
+	game activateNitroTurnsOf: cardTarget.
+	lastCardPlayed := aCard.
+	nitroCardPlayed := aCard.
+	game removeFromHand: aCard to: cardUser.
+	game addToDiscardDeck: aCard
 ]
 
 { #category : #resolving }
 CardPlayResolver >> resolveARedoCardPlay: aCard [
 
-	game addNewCard: lastCardPlayed to: cardPlayer.
-	game play: lastCardPlayed by: cardPlayer targetting: cardTarget.
-	game removeFromHand: aCard to: cardPlayer
+	game addNew: lastCardPlayed to: cardUser.
+	game play: lastCardPlayed by: cardUser targetting: cardTarget.
+	game removeFromHand: aCard to: cardUser
 ]
 
 { #category : #resolving }
@@ -68,35 +104,35 @@ CardPlayResolver >> resolveARepeatCardPlay: aCard [
 
 	game repeatLastEffectAppliedOn: cardTarget.
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer
+	game removeFromHand: aCard to: cardUser.
+	game addToDiscardDeck: aCard
 ]
 
 { #category : #resolving }
-CardPlayResolver >> resolveAnAccelerationCardPlay:aCard [
-	
-	
-	game assertIsTurnOf: cardPlayer.
+CardPlayResolver >> resolveAnAccelerationCardPlay: aCard [
+
+	game assertIsTurnOf: cardUser.
 	game applyToAllSpaceShips: aCard.
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer.
+	game removeFromHand: aCard to: cardUser
 ]
 
 { #category : #resolving }
 CardPlayResolver >> resolveAnAllyCardPlay: aCard [
 
-	game assertIsTurnOf: cardPlayer.
-	game setAnAllianceBewtween: cardPlayer and: cardTarget.
-	game applyACardEffect: aCard to: cardPlayer.
+	game assertIsTurnOf: cardUser.
+	game setAnAllianceBewtween: cardUser and: cardTarget.
+	game applyACardEffect: aCard to: cardUser.
 	game applyACardEffect: aCard to: cardTarget.
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer
+	game removeFromHand: aCard to: cardUser
 ]
 
 { #category : #resolving }
 CardPlayResolver >> resolveAnOverloadCardPlay: aCard [
 
-	game assertIsTurnOf: cardPlayer.
+	game assertIsTurnOf: cardUser.
 	game applyACardEffect: aCard to: cardTarget.
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer
+	game removeFromHand: aCard to: cardUser
 ]

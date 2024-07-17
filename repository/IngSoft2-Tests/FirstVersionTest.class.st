@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #tests }
-FirstVersionTest >> testFV01GameMustHaveAtLeastOnePlayer [
+FirstVersionTest >> testFV01GameMustHaveAtLeastOneSpaceship [
 
 	| aBoard aDie1 |
 	aBoard := Board
@@ -17,7 +17,7 @@ FirstVersionTest >> testFV01GameMustHaveAtLeastOnePlayer [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: {3}.
 
@@ -31,7 +31,7 @@ FirstVersionTest >> testFV01GameMustHaveAtLeastOnePlayer [
 				rolling: aDie1
 				usingCardsFrom: { 'card1.'. 'card2.' } ]
 		raise: Error
-		withMessage: 'Game must have at least one player'
+		withMessage: 'Game must have at least one spaceship'
 ]
 
 { #category : #tests }
@@ -48,7 +48,7 @@ FirstVersionTest >> testFV02SpaceshipsStartAtFirstTile [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: {3}.
 
@@ -57,14 +57,14 @@ FirstVersionTest >> testFV02SpaceshipsStartAtFirstTile [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2' }).
 
 
 	self assert: (aGame spaceshipCalled: 'Danny') name equals: 'Danny'.
 	self assert: (aGame spaceshipCalled: 'Walter') name equals: 'Walter'.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 ]
 
 { #category : #tests }
@@ -81,7 +81,7 @@ FirstVersionTest >> testFV03GameHasEndedAsOneSpaceshipReachTheEnd [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 9. 9. 9. 10 }.
 
@@ -90,21 +90,21 @@ FirstVersionTest >> testFV03GameHasEndedAsOneSpaceshipReachTheEnd [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-
-	aGame playNextTurn.
-	aGame playNextTurn.
-
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 
 	aGame playNextTurn.
+	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 2.
+	self assert: 'Danny' isAt: 3 with: 2 in: aGame.
+	self assert: 'Walter' isAt: 3 with: 2 in: aGame.
+
+	aGame playNextTurn.
+
+	self assert: 'Danny' isAt: 1 with: 3 in: aGame.
+	self assert: 'Walter' isAt: 3 with: 2 in: aGame.
 
 
 
@@ -124,7 +124,7 @@ FirstVersionTest >> testFV04CantRollAfterGameEnded [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 9. 10 }.
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -133,16 +133,15 @@ FirstVersionTest >> testFV04CantRollAfterGameEnded [
 		         on: aBoard
 		         finishingAfter: 1
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: 'Danny' isAt: 1 with: 2 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 
 	self
 		should: [ aGame playNextTurn ]
@@ -163,7 +162,7 @@ FirstVersionTest >> testFV05IsValidWhenTheWinnerIsAssignedCorrectly [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 8. 8. 8. 9 }.
 	someSpacheships := { 'Danny'. 'Walter' }.
@@ -173,7 +172,7 @@ FirstVersionTest >> testFV05IsValidWhenTheWinnerIsAssignedCorrectly [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2' }).
 
 	aGame playNextTurn.
 	aGame playNextTurn.
@@ -198,7 +197,7 @@ FirstVersionTest >> testFV06GameIsPlayedWithTwoDice [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: {3}.
 	aDie2 := LoadedDie of: {3}.
@@ -212,15 +211,15 @@ FirstVersionTest >> testFV06GameIsPlayedWithTwoDice [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDiceRoller
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 
 	aGame playNextTurn.
 	self deny: aGame hasEnded.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1
+	self assert: 'Danny' isAt: 7 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 ]
 
 { #category : #tests }
@@ -235,7 +234,7 @@ FirstVersionTest >> testFV07GameWithRandomDie [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := Die of: 3.
 
@@ -244,11 +243,11 @@ FirstVersionTest >> testFV07GameWithRandomDie [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2' }).
 
 	self deny: aGame hasEnded.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 
 	self deny: aGame hasEnded.
 
@@ -269,7 +268,7 @@ FirstVersionTest >> testFV08GameWithTwoRandomDice [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := Die of: 3.
 	aDie2 := Die of: 5.
 
@@ -281,11 +280,11 @@ FirstVersionTest >> testFV08GameWithTwoRandomDice [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2' }).
 
 	self deny: aGame hasEnded.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 
 	self deny: aGame hasEnded.
 
@@ -295,7 +294,7 @@ FirstVersionTest >> testFV08GameWithTwoRandomDice [
 ]
 
 { #category : #tests }
-FirstVersionTest >> testFV09PlayerOneCanRollTheDiceAfterPlayerTwoTurn [
+FirstVersionTest >> testFV09SpaceshipOneCanRollTheDiceAfterSpaceshipTwoTurn [
 
 	| aGame aBoard aDie1 someSpaceships |
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -308,7 +307,7 @@ FirstVersionTest >> testFV09PlayerOneCanRollTheDiceAfterPlayerTwoTurn [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 3. 3. 3. 3. 4 }.
 
@@ -317,18 +316,18 @@ FirstVersionTest >> testFV09PlayerOneCanRollTheDiceAfterPlayerTwoTurn [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2' }).
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
+	self assert: 'Danny' isAt: 4 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 4 with: 1 in: aGame.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7
+	self assert: 'Danny' isAt: 7 with: 1 in: aGame.
 ]
 
 { #category : #tests }
-FirstVersionTest >> testFV10TurnsWhenThreePlayersArePLaying [
+FirstVersionTest >> testFV10TurnsWhenThreeSpaceshipsArePlaying [
 
 	| aGame aBoard aDie1 someSpaceships |
 	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
@@ -343,7 +342,7 @@ FirstVersionTest >> testFV10TurnsWhenThreePlayersArePLaying [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: {3}.
 
@@ -352,16 +351,16 @@ FirstVersionTest >> testFV10TurnsWhenThreePlayersArePLaying [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: 'Danny' isAt: 4 with: 1 in: aGame.
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
+	self assert: 'Walter' isAt: 4 with: 1 in: aGame.
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 4
+	self assert: 'Joseph' isAt: 4 with: 1 in: aGame.
 ]
 
 { #category : #tests }
@@ -381,7 +380,7 @@ FirstVersionTest >> testFV11WormholeGoesBackwards [
 				          wormholeTile5.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: {4}.
 
@@ -390,11 +389,11 @@ FirstVersionTest >> testFV11WormholeGoesBackwards [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3
+	self assert: 'Danny' isAt: 3 with: 1 in: aGame.
 ]
 
 { #category : #tests }
@@ -419,7 +418,7 @@ FirstVersionTest >> testFV12WormholeGoesForward [
 				          Null create.
 				          wormholeTile12.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: {7}.
 
 	aGame := Game
@@ -427,11 +426,11 @@ FirstVersionTest >> testFV12WormholeGoesForward [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 12
+	self assert: 'Danny' isAt: 12 with: 1 in: aGame.
 ]
 
 { #category : #tests }
@@ -450,7 +449,7 @@ FirstVersionTest >> testFV13WormholeIsNotOnANormalTile [
 				          Null create.
 				          Null create.
 				          wormholeTile7 }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: {4}.
 
@@ -459,9 +458,9 @@ FirstVersionTest >> testFV13WormholeIsNotOnANormalTile [
 		         on: aBoard
 		         finishingAfter: 2
 		         rolling: aDie1
-		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }).
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5
+self assert: 'Danny' isAt: 5 with: 1 in: aGame.
 ]

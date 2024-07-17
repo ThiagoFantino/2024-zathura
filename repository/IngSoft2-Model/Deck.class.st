@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #asserting }
-Deck class >> assertCardsIsNotEmpty: someCards [
+Deck class >> assertIsNotEmpty: someCards [
 
 	someCards ifEmpty: [
 		Error signal: 'Deck must have at least one card' ]
@@ -17,18 +17,34 @@ Deck class >> assertCardsIsNotEmpty: someCards [
 { #category : #'instance creation' }
 Deck class >> of: someCards [
 
-	self assertCardsIsNotEmpty: someCards.
+	self assertIsNotEmpty: someCards.
 	^ self new initializeOf: someCards
 ]
 
 { #category : #initialization }
 Deck >> initializeOf: someCards [
 
-	cards := someCards
+	cards := someCards asOrderedCollection shuffled
+]
+
+{ #category : #initialization }
+Deck >> isEmpty [
+
+	^ cards isEmpty
+]
+
+{ #category : #accessing }
+Deck >> length [
+
+	^ cards size
 ]
 
 { #category : #playing }
 Deck >> pick [
 
-	^ cards atRandom
+	| cardToPick |
+	cards isEmpty ifTrue: [ Error signal: 'No cards to pick' ].
+	cardToPick := cards first.
+	cards remove: cardToPick.
+	^ cardToPick
 ]

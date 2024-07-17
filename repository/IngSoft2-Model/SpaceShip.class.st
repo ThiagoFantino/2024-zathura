@@ -3,12 +3,14 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'name',
-		'position',
+		'tileNumber',
 		'lap',
 		'turnsToLose',
 		'needsToThrow',
 		'ally',
-		'fuelTank'
+		'fuelTank',
+		'leak',
+		'nitroTurns'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -21,10 +23,16 @@ SpaceShip class >> assertValidNameFor: aName [
 ]
 
 { #category : #'instance creation' }
-SpaceShip class >> named: aName withMaxFuel: anAmount [
+SpaceShip class >> called: aName withMaxFuel: anAmount [
 
 	self assertValidNameFor: aName.
 	^ self new initialize: aName withMaxFuel: anAmount
+]
+
+{ #category : #activation }
+SpaceShip >> activateLeakCardPenalty [
+
+	leak := true
 ]
 
 { #category : #accessing }
@@ -36,15 +44,30 @@ SpaceShip >> ally [
 { #category : #playing }
 SpaceShip >> applyPenaltyForEmptyFuelTank [
 
-	position := 1.
+	tileNumber := 1.
 	fuelTank refuelToMax.
-	self losesTurns: 2
+	self losesTurns: 2.
+	leak := false
+]
+
+{ #category : #playing }
+SpaceShip >> assignNitroTurns: amountOfTurns [
+
+	nitroTurns := nitroTurns + amountOfTurns
 ]
 
 { #category : #playing }
 SpaceShip >> changeRollingResultNeededToMove: aNumber [
 
 	needsToThrow := aNumber
+]
+
+{ #category : #playing }
+SpaceShip >> checkLeakPenaltyToDecreaseFuel: aFuelAmount [
+
+	leak
+		ifTrue: [ self decreaseFuelBy: aFuelAmount * 2 ]
+		ifFalse: [ self decreaseFuelBy: aFuelAmount ]
 ]
 
 { #category : #playing }
@@ -85,12 +108,14 @@ SpaceShip >> handleEmptyFuelTankForMovePositionBy: aNumber lapBy: quantityOfLaps
 SpaceShip >> initialize: aName withMaxFuel: anAmount [
 
 	name := aName.
-	position := 1.
+	tileNumber := 1.
 	lap := 1.
 	turnsToLose := 0.
+	nitroTurns := 0.
 	needsToThrow := 0.
 	fuelTank := FuelTank withMaxFuel: anAmount.
-	ally := nil
+	ally := nil.
+	leak := false
 ]
 
 { #category : #asserting }
@@ -115,7 +140,7 @@ SpaceShip >> losesTurns: amountOfTurns [
 SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFuelAmount [
 
 	needsToThrow = 0 ifFalse: [ ^ self ].
-	self decreaseFuelBy: aFuelAmount.
+	self checkLeakPenaltyToDecreaseFuel: aFuelAmount.
 
 	fuelTank isEmpty
 		ifTrue: [
@@ -129,7 +154,7 @@ SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFu
 { #category : #playing }
 SpaceShip >> moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove [
 
-	position := position + aNumber.
+	tileNumber := tileNumber + aNumber.
 	lap := lap + quantityOfLapsToMove
 ]
 
@@ -139,10 +164,10 @@ SpaceShip >> name [
 	^ name
 ]
 
-{ #category : #'accessing - arguments' }
-SpaceShip >> position [
+{ #category : #initialization }
+SpaceShip >> nitroTurns [
 
-	^ position
+	^ nitroTurns
 ]
 
 { #category : #playing }
@@ -161,11 +186,23 @@ SpaceShip >> setAllyToNil [
 	ally := nil
 ]
 
+{ #category : #asserting }
+SpaceShip >> setLeakToFalse [
+
+	leak := false
+]
+
 { #category : #playing }
 SpaceShip >> skipTurn [
 
 	self losesTurns: 1.
 	fuelTank refuelToMax
+]
+
+{ #category : #'accessing - arguments' }
+SpaceShip >> tileNumber [
+
+	^ tileNumber
 ]
 
 { #category : #accessing }

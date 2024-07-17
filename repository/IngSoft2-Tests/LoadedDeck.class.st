@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #asserting }
-LoadedDeck class >> assertCardsIsNotEmpty: someCards [
+LoadedDeck class >> assertIsNotEmpty: someCards [
 
 	someCards ifEmpty: [
 		Error signal: 'Deck must have at least one card' ]
@@ -17,14 +17,20 @@ LoadedDeck class >> assertCardsIsNotEmpty: someCards [
 { #category : #'instance creation' }
 LoadedDeck class >> of: someCards [
 
-	self assertCardsIsNotEmpty: someCards.
+	self assertIsNotEmpty: someCards.
 	^ self new initializeOf: someCards
 ]
 
 { #category : #initialization }
 LoadedDeck >> initializeOf: someCards [
 
-	cards := someCards asOrderedCollection .
+	cards := someCards asOrderedCollection.
+]
+
+{ #category : #initialization }
+LoadedDeck >> isEmpty [
+
+	^ cards isEmpty
 ]
 
 { #category : #initialization }

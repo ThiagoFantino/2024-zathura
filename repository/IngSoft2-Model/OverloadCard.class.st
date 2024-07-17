@@ -7,7 +7,7 @@ Class {
 { #category : #delegating }
 OverloadCard >> cancelEffectUsing: cardPlayResolver [
 
-	cardPlayResolver cancelAnOverloadCard: self
+	cardPlayResolver cancelOverload: self
 ]
 
 { #category : #initialization }

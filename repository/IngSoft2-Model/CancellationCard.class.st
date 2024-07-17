@@ -7,5 +7,5 @@ Class {
 { #category : #delegating }
 CancellationCard >> uses: cardPlayResolver [
 
-	cardPlayResolver resolveACancellationCardPlay:self
+	cardPlayResolver resolveACancellationCardPlay: self
 ]

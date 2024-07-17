@@ -17,10 +17,10 @@ EffectManager class >> usedIn: aGame with: aBoard affecting: someShips [
 ]
 
 { #category : #initialization }
-EffectManager >> applyEffectOnLandingShip: aSpaceship [
+EffectManager >> applyEffectOn: aSpaceship [
 
 	| effectToApply |
-	effectToApply := board effectToApplyTo: aSpaceship .
+	effectToApply := board effectToApplyTo: aSpaceship.
 	lastEffectApplied := effectToApply.
 	effectToApply triggeredBy: aSpaceship on: self
 ]

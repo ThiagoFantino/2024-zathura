@@ -7,7 +7,7 @@ Class {
 { #category : #delegating }
 AccelerationCard >> cancelEffectUsing: cardPlayResolver [
 
-	cardPlayResolver cancelAnAccelerationCard: self
+	cardPlayResolver cancelAcceleration: self
 ]
 
 { #category : #initialization }

@@ -7,5 +7,5 @@ Class {
 { #category : #delegating }
 RepeatCard >> uses: cardPlayResolver [
 
-	cardPlayResolver resolveARepeatCardPlay:self
+	cardPlayResolver resolveARepeatCardPlay: self
 ]

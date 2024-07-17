@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #playing }
-Effect >> triggeredBy: aPlayer on: anEffectManager [
+Effect >> triggeredBy: aSpaceship on: anEffectManager [
 
 	self subclassResponsibility
 ]
