@@ -115,6 +115,14 @@ Game >> assignRewardForMaxRollFor: aSpaceship [
 
 ]
 
+{ #category : #'as yet unclassified' }
+Game >> cancel: nitroCardPlayed of: spaceshipTurn [
+
+	(self spaceshipCalled: spaceshipTurn name) nitroTurns == 0 ifTrue: [
+		(self cardsHandOf: spaceshipTurn name) removeEffectOf:
+			nitroCardPlayed ]
+]
+
 { #category : #accessing }
 Game >> cancelTheEffectOf: aPermanentCard [
 	|filteredCardsHands|
