@@ -53,13 +53,13 @@ Game class >> playedBy: someSpaceShips on: aBoard finishingAfter: laps rolling: 
 		  usingCardsFrom: aDeck
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #activation }
 Game >> activateLeakCardPenaltyOf: cardTarget [
 
 	(self spaceshipCalled: cardTarget) activateLeakCardPenalty
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #activation }
 Game >> activateNitroTurnsOf: cardTarget [
 
 	(self spaceshipCalled: cardTarget) assignNitroTurns:3.
@@ -115,7 +115,7 @@ Game >> assignRewardForMaxRollFor: aSpaceship [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Game >> cancel: nitroCardPlayed of: spaceshipTurn [
 
 	(self spaceshipCalled: spaceshipTurn name) nitroTurns == 0 ifTrue: [
@@ -155,13 +155,13 @@ Game >> checkEndGame [
 	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Game >> deckLength [
 
 	^ deck length
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 Game >> decksHasToBeRedistributed [
 
 	^ deck isEmpty
@@ -238,7 +238,7 @@ Game >> playNextTurn [
 	self checkEndGame
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 Game >> redistributeDecks [
 
 	self decksHasToBeRedistributed ifFalse: [ ^ self ].

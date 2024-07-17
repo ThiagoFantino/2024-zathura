@@ -29,7 +29,7 @@ SpaceShip class >> named: aName withMaxFuel: anAmount [
 	^ self new initialize: aName withMaxFuel: anAmount
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #activation }
 SpaceShip >> activateLeakCardPenalty [
 
 	leak := true
