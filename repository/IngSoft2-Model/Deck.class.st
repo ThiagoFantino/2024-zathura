@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #asserting }
-Deck class >> assertCardsIsNotEmpty: someCards [
+Deck class >> assertIsNotEmpty: someCards [
 
 	someCards ifEmpty: [
 		Error signal: 'Deck must have at least one card' ]
@@ -17,7 +17,7 @@ Deck class >> assertCardsIsNotEmpty: someCards [
 { #category : #'instance creation' }
 Deck class >> of: someCards [
 
-	self assertCardsIsNotEmpty: someCards.
+	self assertIsNotEmpty: someCards.
 	^ self new initializeOf: someCards
 ]
 

@@ -23,7 +23,7 @@ SpaceShip class >> assertValidNameFor: aName [
 ]
 
 { #category : #'instance creation' }
-SpaceShip class >> named: aName withMaxFuel: anAmount [
+SpaceShip class >> called: aName withMaxFuel: anAmount [
 
 	self assertValidNameFor: aName.
 	^ self new initialize: aName withMaxFuel: anAmount

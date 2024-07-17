@@ -17,7 +17,7 @@ FirstVersionTest >> testFV01GameMustHaveAtLeastOneSpaceship [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: {3}.
 
@@ -48,7 +48,7 @@ FirstVersionTest >> testFV02SpaceshipsStartAtFirstTile [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: {3}.
 
@@ -81,7 +81,7 @@ FirstVersionTest >> testFV03GameHasEndedAsOneSpaceshipReachTheEnd [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 9. 9. 9. 10 }.
 
@@ -124,7 +124,7 @@ FirstVersionTest >> testFV04CantRollAfterGameEnded [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 9. 10 }.
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -162,7 +162,7 @@ FirstVersionTest >> testFV05IsValidWhenTheWinnerIsAssignedCorrectly [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 8. 8. 8. 9 }.
 	someSpacheships := { 'Danny'. 'Walter' }.
@@ -197,7 +197,7 @@ FirstVersionTest >> testFV06GameIsPlayedWithTwoDice [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: {3}.
 	aDie2 := LoadedDie of: {3}.
@@ -234,7 +234,7 @@ FirstVersionTest >> testFV07GameWithRandomDie [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := Die of: 3.
 
@@ -268,7 +268,7 @@ FirstVersionTest >> testFV08GameWithTwoRandomDice [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := Die of: 3.
 	aDie2 := Die of: 5.
 
@@ -307,7 +307,7 @@ FirstVersionTest >> testFV09SpaceshipOneCanRollTheDiceAfterSpaceshipTwoTurn [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 3. 3. 3. 3. 4 }.
 
@@ -342,7 +342,7 @@ FirstVersionTest >> testFV10TurnsWhenThreeSpaceshipsArePlaying [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: {3}.
 
@@ -380,7 +380,7 @@ FirstVersionTest >> testFV11WormholeGoesBackwards [
 				          wormholeTile5.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: {4}.
 
@@ -418,7 +418,7 @@ FirstVersionTest >> testFV12WormholeGoesForward [
 				          Null create.
 				          wormholeTile12.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: {7}.
 
 	aGame := Game
@@ -449,7 +449,7 @@ FirstVersionTest >> testFV13WormholeIsNotOnANormalTile [
 				          Null create.
 				          Null create.
 				          wormholeTile7 }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: {4}.
 

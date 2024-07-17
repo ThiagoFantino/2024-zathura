@@ -33,7 +33,7 @@ Game class >> assertValidNumberOfLaps: laps [
 Game class >> createSpaceshipsUsing: spaceshipNames withMaxFuel: anAmount [
 
 	^ spaceshipNames collect: [ :spaceship |
-		  SpaceShip named: spaceship withMaxFuel: 2 * anAmount ]
+		  SpaceShip called: spaceship withMaxFuel: 2 * anAmount ]
 ]
 
 { #category : #'instance creation' }
@@ -66,7 +66,7 @@ Game >> activateNitroTurnsOf: cardTarget [
 ]
 
 { #category : #accessing }
-Game >> addNewCard: aCard to: aSpaceship [
+Game >> addNew: aCard to: aSpaceship [
 
 	(self cardsHandOf: aSpaceship) addToHand: aCard
 ]
@@ -180,7 +180,7 @@ Game >> giveCardFromDeckTo: aSpaceship [
 	deck isEmpty
 		ifFalse: [
 			card := deck pick.
-			self addNewCard: card to: aSpaceship name ]
+			self addNew: card to: aSpaceship name ]
 		ifTrue: [
 			Error signal:
 				'It is not possible to pick a card because both decks are empty!' ].
@@ -233,8 +233,8 @@ Game >> playNextTurn [
 	self check: rollingResult ToAssignRewardForMaxRollTo: spaceshipTurn.
 	rollModifier := self rollModifierFor: spaceshipTurn.
 	board move: spaceshipTurn by: rollingResult + rollModifier.
-	effectManager applyEffectOnLandingShip: spaceshipTurn.
-	cardPlayResolver cancelANitroCard: spaceshipTurn.
+	effectManager applyEffectOn: spaceshipTurn.
+	cardPlayResolver cancelNitro: spaceshipTurn.
 	self checkEndGame
 ]
 

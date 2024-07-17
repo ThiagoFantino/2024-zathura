@@ -18,7 +18,7 @@ FourthVersionTest >> testFV01DeckHasALimitedAmountOfCards [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
 	anAccelerationCard := AccelerationCard new.
@@ -60,7 +60,7 @@ FourthVersionTest >> testFV02WhenAnInstantCardIsUsedItGoesToTheDiscardDeck [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
 	aNitroCard := NitroCard new.
@@ -112,7 +112,7 @@ FourthVersionTest >> testFV03WhenDeckIsEmptyDiscardDeckIsShuffledAndThatIsTheNew
 				          Null create.
 				          CardGiver new.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
 	aNitroCard := NitroCard new.
@@ -164,7 +164,7 @@ FourthVersionTest >> testFV04DeckHasProbabilityOfOccurrence [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
 	anAccelerationCard := AccelerationCard new.
@@ -250,7 +250,7 @@ FourthVersionTest >> testFV05WhenSpaceshipUsesNitroCardItAddsThreeToTheTotalRoll
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
 	aNitroCard := NitroCard new.
@@ -308,7 +308,7 @@ FourthVersionTest >> testFV06WhenSpaceshipUsesNitroCardItAlsoLastsForThreeTurns 
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 1. 1. 1. 1. 1. 1. 1. 1. 20 }.
 
 	aNitroCard := NitroCard new.
@@ -371,7 +371,7 @@ FourthVersionTest >> testFV07WhenSpaceshipUsesLeakCardItDuplicatesTheConsumption
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
 	aLeakCard := LeakCard new.
@@ -428,7 +428,7 @@ FourthVersionTest >> testFV08LeakCardIsCancelledWhenSpaceshipRunsOutOfFuel [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 1. 2. 1. 1. 1. 1. 3 }.
 
 	aLeakCard := LeakCard new.
@@ -511,7 +511,7 @@ FourthVersionTest >> testFV09LeakCardAlsoIsCancelledWhenSpaceshipUsesCancellatio
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
 	aLeakCard := LeakCard new.
@@ -572,7 +572,7 @@ FourthVersionTest >> testFV10WhenDeckIsEmptyAndDiscardDeckIsEmptyNoCardsCanBeTak
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 3. 3. 2. 2. 6 }.
 
 	anAllyCard := AllyCard new.
@@ -617,7 +617,7 @@ FourthVersionTest >> testFV11WhenDiscardDeckIsEmptyAndACardFromDeckIsUsedBothEnd
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 3. 3. 2. 2. 6 }.
 
 	aNitroCard := NitroCard new.
@@ -665,7 +665,7 @@ FourthVersionTest >> testFV12OverloadCardGoesToDiscardDeckWhenItIsCancelled [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
 	anOverloadCard := OverloadCard new.
@@ -708,7 +708,7 @@ FourthVersionTest >> testFV13AllyCardGoesToDiscardDeckWhenItIsCancelled [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
 	anAllyCard := AllyCard new.
@@ -751,7 +751,7 @@ FourthVersionTest >> testFV14AccelerationCardGoesToDiscardDeckWhenItIsCancelled 
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
 	anAccelerationCard := AccelerationCard new.
@@ -794,7 +794,7 @@ FourthVersionTest >> testFV15LeakCardGoesToDiscardDeckWhenItIsCancelled [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
 	aLeakCard := LeakCard new.
@@ -837,7 +837,7 @@ FourthVersionTest >> testFV16RepeatCardGoesToDiscardDeckAfterItIsUsed [
 				          Null create.
 				          BlackHole new.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 6. 5. 3. 3. 20 }.
 
 	aRepeatCard := RepeatCard new.
@@ -888,7 +888,7 @@ FourthVersionTest >> testFV17RedoCardDiscardWhenItCopiesAPermanentCard [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 3. 3. 3. 3. 6 }.
 
 	anAccelerationCard := AccelerationCard new.
@@ -941,7 +941,7 @@ FourthVersionTest >> testFV18LeakCardCannotBePlayedWhenItIsNotSpaceshipTurnAsItI
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 3. 3. 3. 3. 6 }.
 
 	aLeakCard := LeakCard new.

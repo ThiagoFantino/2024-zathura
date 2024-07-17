@@ -23,7 +23,7 @@ Board class >> isValid: tiles [
 ]
 
 { #category : #'instance creation' }
-Board class >> of: tiles withUnitsOfMeasurement: units [
+Board class >> of: tiles withMeasures: units [
 
 	self isValid: tiles.
 	self assertValidQuantityOf: units valueAsParsecs.

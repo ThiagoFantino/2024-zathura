@@ -18,31 +18,31 @@ CardPlayResolver class >> with: aGame [
 ]
 
 { #category : #resolving }
-CardPlayResolver >> cancelALeakCard: aCard [
-
-	game setLeakToFalse.
-]
-
-{ #category : #resolving }
-CardPlayResolver >> cancelANitroCard: spaceshipTurn [
-
-	game cancel: nitroCardPlayed of: spaceshipTurn
-]
-
-{ #category : #resolving }
-CardPlayResolver >> cancelAnAccelerationCard: aCard [
+CardPlayResolver >> cancelAcceleration: aCard [
 
 	game cancelTheEffectOf: aCard
 ]
 
 { #category : #resolving }
-CardPlayResolver >> cancelAnAllyCard: aCard [
+CardPlayResolver >> cancelAlly: aCard [
 
 	game setAllyToNil.
 ]
 
 { #category : #resolving }
-CardPlayResolver >> cancelAnOverloadCard: aCard [
+CardPlayResolver >> cancelLeak: aCard [
+
+	game setLeakToFalse.
+]
+
+{ #category : #resolving }
+CardPlayResolver >> cancelNitro: spaceshipTurn [
+
+	game cancel: nitroCardPlayed of: spaceshipTurn
+]
+
+{ #category : #resolving }
+CardPlayResolver >> cancelOverload: aCard [
 
 	game cancelTheEffectOf: aCard
 ]
@@ -94,7 +94,7 @@ CardPlayResolver >> resolveANitroCardPlay: aCard [
 { #category : #resolving }
 CardPlayResolver >> resolveARedoCardPlay: aCard [
 
-	game addNewCard: lastCardPlayed to: cardUser.
+	game addNew: lastCardPlayed to: cardUser.
 	game play: lastCardPlayed by: cardUser targetting: cardTarget.
 	game removeFromHand: aCard to: cardUser
 ]

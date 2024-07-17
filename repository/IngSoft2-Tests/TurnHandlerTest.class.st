@@ -18,7 +18,7 @@ TurnHandlerTest >> should: anErrorBlock raise: anErrorClass withMessage: anError
 TurnHandlerTest >> testATurnHandlerCanBeCreatedWithSomeSpaceships [
 
 	| aTurnHandler aSpaceShip |
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 10.
+	aSpaceShip := SpaceShip called: 'Danny' withMaxFuel: 10.
 	aTurnHandler := TurnHandler with: { aSpaceShip }.
 	self assert: aTurnHandler spaceships first name equals: 'Danny'
 ]
@@ -36,8 +36,8 @@ TurnHandlerTest >> testATurnHandlerCannotBeCreatedWithoutSpaceships [
 TurnHandlerTest >> testSpaceship1ThrowsFirst [
 
 	| aTurnHandler aSpaceShip1 aSpaceShip2 |
-	aSpaceShip1 := SpaceShip named: 'Danny' withMaxFuel: 10.
-	aSpaceShip2 := SpaceShip named: 'Walter' withMaxFuel: 10.
+	aSpaceShip1 := SpaceShip called: 'Danny' withMaxFuel: 10.
+	aSpaceShip2 := SpaceShip called: 'Walter' withMaxFuel: 10.
 	aTurnHandler := TurnHandler with: {
 			                aSpaceShip1.
 			                aSpaceShip2 }.
@@ -48,8 +48,8 @@ TurnHandlerTest >> testSpaceship1ThrowsFirst [
 TurnHandlerTest >> testSpaceship2ThrowsAfterSpaceship1 [
 
 	| aTurnHandler aSpaceShip1 aSpaceShip2 |
-	aSpaceShip1 := SpaceShip named: 'Danny' withMaxFuel: 10.
-	aSpaceShip2 := SpaceShip named: 'Walter' withMaxFuel: 10.
+	aSpaceShip1 := SpaceShip called: 'Danny' withMaxFuel: 10.
+	aSpaceShip2 := SpaceShip called: 'Walter' withMaxFuel: 10.
 	aTurnHandler := TurnHandler with: {
 			                aSpaceShip1.
 			                aSpaceShip2 }.

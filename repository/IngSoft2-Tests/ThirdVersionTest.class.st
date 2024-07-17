@@ -17,7 +17,7 @@ ThirdVersionTest >> testTV01EverySpaceshipStartsWithTwoCards [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 6. 4. 3. 3. 6. 6. 20 }.
 
 	aDeck := Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }.
@@ -48,7 +48,7 @@ ThirdVersionTest >> testTV02WhenSpaceshipLandsInCardGiverTileItReceivesACard [
 				          CardGiver new.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2 }.
 
 	anAccelerationCard := AccelerationCard new.
@@ -92,7 +92,7 @@ ThirdVersionTest >> testTV03WhenSpaceshipUsesOverloadCardItReducesByTwoTheTotalR
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 3. 3. 1. 1 }.
 
 	anOverloadCard := OverloadCard new.
@@ -135,7 +135,7 @@ ThirdVersionTest >> testTV04WhenSpaceshipRollsTheMaximumRollItsMaxFuelGoesUpOrIt
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 4. 4 }.
 
 
@@ -204,7 +204,7 @@ ThirdVersionTest >> testTV05HyperJumpMeasuredInLightYearsItMovesForward [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 6).
+		          withMeasures: (Parsecs with: 6).
 	aDie1 := LoadedDie of: { 2. 2. 10 }.
 
 	aDeck := Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }.
@@ -241,7 +241,7 @@ ThirdVersionTest >> testTV06HyperJumpCanBeUsedInParsecsAndLightYears [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 6).
+		          withMeasures: (Parsecs with: 6).
 	aDie1 := LoadedDie of: { 2. 2. 10 }.
 
 	aDeck := Deck of: { 'card1'. 'card2'. 'card1'. 'card2'. 'card1'. 'card2'. }.
@@ -274,7 +274,7 @@ ThirdVersionTest >> testTV07WhenSpaceshipUsesAccelerationCardItAddsOneToTheTotal
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 3. 2. 1. 3.}.
 
 	anAccelerationCard := AccelerationCard new.
@@ -322,7 +322,7 @@ ThirdVersionTest >> testTV08WhenSpaceshipUsesCancellationCardOnAnAccelerationCar
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
 	anAccelerationCard := AccelerationCard new.
@@ -374,7 +374,7 @@ ThirdVersionTest >> testTV09WhenSpaceshipUsesReDoCardItHasTheEffectOfTheLastPlay
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 3. 3. 3. 3. 10 }.
 
 	anOverloadCard := OverloadCard new.
@@ -426,7 +426,7 @@ ThirdVersionTest >> testTV10WhenSpaceshipUsesRepeatCardItHasTheEffectOfTheLastPl
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 1. 1. 6 }.
 
 	aRepeatCard := RepeatCard new.
@@ -477,7 +477,7 @@ ThirdVersionTest >> testTV11WhenSpaceshipUsesAllyCardItSharesFuelWithAnotherSpac
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 1. 2. 1. 2. 1. 1. 3 }.
 
 	anAllyCard := AllyCard new.
@@ -544,7 +544,7 @@ ThirdVersionTest >> testTV12SpaceshipCannotUseAPermanentCardWhenItIsNotItsTurn [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 1. 2. 1. 1 }.
 
 	anAllyCard := AllyCard new.
@@ -588,7 +588,7 @@ ThirdVersionTest >> testTV13SpaceshipCannotUseACardThatIsNotInItsHand [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 1. 2. 1. 1 }.
 
 	anAllyCard := AllyCard new.
@@ -635,7 +635,7 @@ ThirdVersionTest >> testTV14WhenSpaceshipUsesAllyCardAndNeitherOfTheHasEnoughFue
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 3. 1. 3. 3. 3. 3. 3. 1. 1. 4 }.
 
 	anAllyCard := AllyCard new.
@@ -697,7 +697,7 @@ ThirdVersionTest >> testTV15WhenSpaceshipUsesCancellationCardOnAnOverloadCardThe
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
 	anOverloadCard := OverloadCard new.
@@ -754,7 +754,7 @@ ThirdVersionTest >> testTV16WhenSpaceshipUsesReDoCardAfterAnAccelerationCardItCo
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 3. 3. 3. 3. 6 }.
 
 	anAccelerationCard := AccelerationCard new.
@@ -810,7 +810,7 @@ ThirdVersionTest >> testTV17WhenSpaceshipUsesReDoCardAfterARepeatCardItCopiesIt 
 				          Null create.
 				          BlackHole new.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 6. 5. 3. 3. 20 }.
 
 	aRepeatCard := RepeatCard new.
@@ -867,7 +867,7 @@ ThirdVersionTest >> testTV18WhenSpaceshipUsesReDoCardAfterAnAllyCardItCopiesIt [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 20 }.
 
 	anAllyCard := AllyCard new.
@@ -930,7 +930,7 @@ ThirdVersionTest >> testTV19WhenSpaceshipUsesReDoCardAfterACancelationCardItCopi
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 5. 2. 2. 2. 2. 2. 2. 2. 2. 20 }.
 
 	aCancellationCard := CancellationCard  new.
@@ -996,7 +996,7 @@ ThirdVersionTest >> testTV20WhenSpaceshipUsesRepeatCardAfterANullEffecItDoesNoth
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 6. 5. 3. 3. 20 }.
 
 	aRepeatCard := RepeatCard new.
@@ -1049,7 +1049,7 @@ ThirdVersionTest >> testTV21WhenSpaceshipUsesRepeatCardAfterAnatomicBombItTrigge
 				          Null create.
 				          AtomicBomb new.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 6. 5. 3. 3. 20 }.
 
 	aRepeatCard := RepeatCard new.
@@ -1104,7 +1104,7 @@ ThirdVersionTest >> testTV22WhenSpaceshipUsesRepeatCardAfterABlackHoleItTriggers
 				          Null create.
 				          BlackHole new.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 6. 5. 3. 3. 20 }.
 
 	aRepeatCard := RepeatCard new.
@@ -1163,7 +1163,7 @@ ThirdVersionTest >> testTV23WhenSpaceshipUsesRepeatCardAfterAHyperJumpItTriggers
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 5. 3. 3. 3. 20 }.
 
 	aRepeatCard := RepeatCard new.
@@ -1221,7 +1221,7 @@ ThirdVersionTest >> testTV24WhenSpaceshipUsesRepeatCardAfterAHyperGravityItTrigg
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 3. 5. 6. 3. 4. 4. 20 }.
 
 	aRepeatCard := RepeatCard new.
@@ -1287,7 +1287,7 @@ ThirdVersionTest >> testTV25WhenSpaceshipUsesRepeatCardAfterACardGiverItTriggers
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 3. 3. 3. 3. 20 }.
 
 	anAccelerationCard := AccelerationCard new.
@@ -1346,7 +1346,7 @@ ThirdVersionTest >> testTV26WhenSpaceshipUsesRepeatCardAfterWormHoleItTriggersIt
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 3. 3. 3. 20 }.
 
 	aRepeatCard := RepeatCard new.
@@ -1397,7 +1397,7 @@ ThirdVersionTest >> testTV27WhenSpaceshipUsesReDoCardAfterAReDoCardItCopiesTheLa
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 3. 2. 2. 2. 2. 2. 2. 2. 2. 20 }.
 
 	aRedoCard := RedoCard new.
@@ -1453,7 +1453,7 @@ ThirdVersionTest >> testTV28WhenSpaceshipUsesCancellationCardOnAnAllyCardThenItR
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
 
 	anAllyCard := AllyCard new.

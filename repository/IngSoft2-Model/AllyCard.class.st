@@ -7,7 +7,7 @@ Class {
 { #category : #delegating }
 AllyCard >> cancelEffectUsing: cardPlayResolver [
 
-	cardPlayResolver cancelAnAllyCard: self
+	cardPlayResolver cancelAlly: self
 ]
 
 { #category : #initialization }

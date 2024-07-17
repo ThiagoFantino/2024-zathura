@@ -17,7 +17,7 @@ SecondVersionTest >> testSV01SpaceshipsStartAtLapOne [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: {3}.
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -46,7 +46,7 @@ SecondVersionTest >> testSV02SpaceshipChangesLapAfterPassingTheLastTile [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 6. 6. 2. 2 }.
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -86,7 +86,7 @@ SecondVersionTest >> testSV03SpaceshipWinsAfterCompletingAnAmountOfLaps [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 6. 3. 6. 3. 6. 3. 6. 3. 6. 15 }.
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -128,7 +128,7 @@ SecondVersionTest >> testSV04GameMustHaveOneOrMoreLaps [
 						          Null create.
 						          Null create.
 						          Null create }
-				          withUnitsOfMeasurement: (Parsecs with: 10).
+				          withMeasures: (Parsecs with: 10).
 
 			aDie1 := LoadedDie of: { 6. 3. 6. 3. 6. 3. 6. 3. 6. 15 }.
 			someSpaceships := { 'Danny'. 'Walter' }.
@@ -157,7 +157,7 @@ SecondVersionTest >> testSV05EverySpaceshipStartsWithAmountOfFuelEqualToTheDoubl
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: {3}.
 	aDie2 := LoadedDie of: {3}.
@@ -196,7 +196,7 @@ SecondVersionTest >> testSV06WhenASpaceshipMovesItHasLessFuel [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: {3}.
 	aDie2 := LoadedDie of: {3}.
@@ -238,7 +238,7 @@ SecondVersionTest >> testSV07WhenASpaceshipRunsOutOfFuelItGoesBackToTileOneInLap
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 2. 3. 2. 3. 2. 3. 4 }.
 
@@ -297,7 +297,7 @@ SecondVersionTest >> testSV08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 2. 1. 2. 1. 2. 1. 2. 1. 1. 1. 3 }.
 
@@ -367,7 +367,7 @@ SecondVersionTest >> testSV09SpaceshipSkipsTheirTurnToHaveMaxFuel [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 
 	aDie1 := LoadedDie of: { 2. 2. 2. 3. 2. 2 }.
@@ -421,7 +421,7 @@ SecondVersionTest >> testSV10LandingInAnEffectTileAfterBeingMovedByAnEffectDoesN
 				          BlackHole new.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 
 	aDie1 := LoadedDie of: { 5. 5. 10 }.
@@ -458,7 +458,7 @@ SecondVersionTest >> testSV11Spaceship2IsTheFirstSpaceShipAtSpaceShipsRankingAsH
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 1. 3. 3. 3. 3. 4. 1. 1 }.
 
@@ -507,7 +507,7 @@ SecondVersionTest >> testSV12BlackHoleEffectWhenSpaceShipHasEnoughFuelItGoesFour
 				          BlackHole new.
 				          Null new.
 				          Null new }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 5. 5. 10 }.
 
@@ -554,7 +554,7 @@ SecondVersionTest >> testSV13BlackHoleEffectWhenSpaceShipRunsOutOfFuelItGoesToTh
 				          BlackHole new.
 				          Null new.
 				          Null new }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 1. 1. 4. 4 }.
 
@@ -612,7 +612,7 @@ SecondVersionTest >> testSV14BlackHoleEffectWhenSpaceShipIsInTheFirstThreeTilesI
 				          Null new.
 				          Null new.
 				          Null new }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 6. 6. 1. 1. 7 }.
 
@@ -655,7 +655,7 @@ SecondVersionTest >> testSV15SpaceshipEscapesOfTheHyperGravityEffectWhenItGetsAC
 				          (HyperGravity needsToThrow: 4).
 				          Null new.
 				          Null new }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 
 	aGame := Game
@@ -697,7 +697,7 @@ SecondVersionTest >> testSV16SpaceshipCannotEscapeFromTheHyperGravityEffectIfItD
 				          (HyperGravity needsToThrow: 4).
 				          Null new.
 				          Null new }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -737,7 +737,7 @@ SecondVersionTest >> testSV17MoonWalkEffectWhenSpaceShipHasEnoughFuelItGoesNTile
 				          (MoonWalk backwardDistance: 2).
 				          Null new.
 				          Null new }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 2. 3. 3. 4. 30 }.
 	aGame := Game
@@ -776,7 +776,7 @@ SecondVersionTest >> testSV18MoonWalkEffectWhenSpaceShipRunsOutOfFuelItGoesToThe
 				          Null new.
 				          (MoonWalk backwardDistance: 4).
 				          Null new }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 2. 3. 3. 3. 1. 4 }.
 
@@ -820,7 +820,7 @@ SecondVersionTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesIt
 				          Null new.
 				          Null new.
 				          Null new }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 6. 6. 1. 1 }.
 
@@ -867,7 +867,7 @@ SecondVersionTest >> testSV20HyperJumpEffectAssignsParsecsToSpaceshipAndItGoesFo
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 3. 3. 3. 4 }.
 
 	aGame := Game
@@ -903,7 +903,7 @@ SecondVersionTest >> testSV21AtomicBombEffectSendsAllSpaceshipsBackToTheFirstTil
 				          AtomicBomb new.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 6. 4. 3. 3. 6. 6. 20 }.
 
 	aGame := Game
@@ -953,7 +953,7 @@ SecondVersionTest >> testSV22SequenceDie [
 				          Null create.
 				          Null create.
 				          Null create }
-		          withUnitsOfMeasurement: (Parsecs with: 10).
+		          withMeasures: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 4. 3. 3. 5 }.
 	someSpaceships := { 'Danny'. 'Walter' }.

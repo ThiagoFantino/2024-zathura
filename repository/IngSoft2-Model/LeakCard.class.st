@@ -7,7 +7,7 @@ Class {
 { #category : #delegating }
 LeakCard >> cancelEffectUsing: cardPlayResolver [
 
-	cardPlayResolver cancelALeakCard: self
+	cardPlayResolver cancelLeak: self
 ]
 
 { #category : #delegating }

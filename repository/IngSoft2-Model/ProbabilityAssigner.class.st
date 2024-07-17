@@ -9,7 +9,7 @@ Class {
 }
 
 { #category : #asserting }
-ProbabilityAssigner class >> assertProbabilityIsBetweenZeroAndOne: probability [
+ProbabilityAssigner class >> assertIsBetweenZeroAndOne: probability [
 
 	(probability between: 0 and: 1) ifFalse: [
 		Error signal: 'Probability must be between 0 and 1!' ]
@@ -18,7 +18,7 @@ ProbabilityAssigner class >> assertProbabilityIsBetweenZeroAndOne: probability [
 { #category : #'instance creation' }
 ProbabilityAssigner class >> with: element and: probability [
 
-	self assertProbabilityIsBetweenZeroAndOne: probability.
+	self assertIsBetweenZeroAndOne: probability.
 
 	^ self new initializeWith: element and: probability
 ]

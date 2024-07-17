@@ -24,7 +24,7 @@ BoardTest >> testBoardCannotBeCreatedWithNegativeParsecs [
 						Null create.
 						Null create.
 						Null create }
-				withUnitsOfMeasurement: (Parsecs with: -2) ]
+				withMeasures: (Parsecs with: -2) ]
 		raise: Error
 		withMessage: 'Parsecs cannot be a negative measure'
 ]
@@ -33,7 +33,7 @@ BoardTest >> testBoardCannotBeCreatedWithNegativeParsecs [
 BoardTest >> testBoardCannotBeCreatedWithOutTiles [
 
 	self
-		should: [ Board of: {  } withUnitsOfMeasurement: (Parsecs with: 10) ]
+		should: [ Board of: {  } withMeasures: (Parsecs with: 10) ]
 		raise: Error
 		withMessage: 'Tiles should be 2 or more'
 ]

@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #asserting }
-DiceRoller class >> hasValidNumberOfDice: dice [
+DiceRoller class >> hasValidNumberOf: dice [
 
 	dice size < 2 ifTrue: [
 		Error signal: 'A DiceRoller must have more than one die' ]
@@ -17,7 +17,7 @@ DiceRoller class >> hasValidNumberOfDice: dice [
 { #category : #'instance creation' }
 DiceRoller class >> of: dice [
 
-	self hasValidNumberOfDice: dice.
+	self hasValidNumberOf: dice.
 
 	^ self new initializeOf: dice
 ]
