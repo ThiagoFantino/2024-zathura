@@ -728,7 +728,7 @@ ThirdVersionTest >> testTV15WhenSpaceshipUsesCancellationCardOnAnOverloadCardThe
 	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 
 	
-	aGame play: aCancellationCard by: 'Danny'  targetting:anOverloadCard. 
+	aGame play: aCancellationCard by: 'Walter'  targetting:anOverloadCard. 
 
 	aGame playNextTurn.
 	aGame playNextTurn.

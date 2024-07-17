@@ -645,10 +645,12 @@ FourthVersionTest >> testFV11WhenDiscardDeckIsEmptyAndACardFromDeckIsUsedBothEnd
 
 	self assert: aGame deckLength equals: 0.
 	self assert: aGame discardDecklength equals: 1.
+	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 1.
 
 	aGame playNextTurn.
 	self assert: aGame deckLength equals: 0.
-	self assert: aGame discardDecklength equals: 0
+	self assert: aGame discardDecklength equals: 0.
+	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 2.
 ]
 
 { #category : #tests }
