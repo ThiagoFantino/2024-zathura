@@ -142,6 +142,13 @@ Game >> cardsHandOf: aSpaceship [
 	^ spaceshipCardHandler
 ]
 
+{ #category : #playing }
+Game >> check: rollingResult ToAssignRewardForMaxRollTo: spaceshipTurn [
+
+	rollingResult = diceCollection maxRoll ifTrue: [
+		self assignRewardForMaxRollFor: spaceshipTurn ]
+]
+
 { #category : #asserting }
 Game >> checkEndGame [
 
@@ -223,12 +230,11 @@ Game >> playNextTurn [
 	self hasEnded ifTrue: [ Error signal: 'Game has already ended' ].
 	spaceshipTurn := turnHandler nextSpaceshipTurn.
 	rollingResult := spaceshipTurn rollDiceUsing: diceCollection.
-	rollingResult = diceCollection maxRoll ifTrue: [
-		self assignRewardForMaxRollFor: spaceshipTurn ].
+	self check: rollingResult ToAssignRewardForMaxRollTo: spaceshipTurn.
 	rollModifier := self rollModifierFor: spaceshipTurn.
 	board move: spaceshipTurn by: rollingResult + rollModifier.
 	effectManager applyEffectOnLandingShip: spaceshipTurn.
-	cardPlayResolver cancelANitroCard:spaceshipTurn.
+	cardPlayResolver cancelANitroCard: spaceshipTurn.
 	self checkEndGame
 ]
 
