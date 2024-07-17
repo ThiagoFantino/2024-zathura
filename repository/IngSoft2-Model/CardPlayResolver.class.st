@@ -26,13 +26,13 @@ CardPlayResolver >> cancelAcceleration: aCard [
 { #category : #resolving }
 CardPlayResolver >> cancelAlly: aCard [
 
-	game setAllyToNil.
+	game setAllyToNil
 ]
 
 { #category : #resolving }
 CardPlayResolver >> cancelLeak: aCard [
 
-	game setLeakToFalse.
+	game setLeakToFalse
 ]
 
 { #category : #resolving }

@@ -15,8 +15,6 @@ Distribution class >> assertSumOfProbabilitiesEqualsToOne: probabilityTileList [
 		 into: [ :initial :probabilityTile |
 		 initial + probabilityTile probability ]) = 1 ifFalse: [
 		Error signal: 'The sum of the probabilities must be equal to 1!' ]
-
-	
 ]
 
 { #category : #'instance creation' }

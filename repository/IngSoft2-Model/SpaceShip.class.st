@@ -47,7 +47,7 @@ SpaceShip >> applyPenaltyForEmptyFuelTank [
 	tileNumber := 1.
 	fuelTank refuelToMax.
 	self losesTurns: 2.
-	leak := false.
+	leak := false
 ]
 
 { #category : #playing }
@@ -115,7 +115,7 @@ SpaceShip >> initialize: aName withMaxFuel: anAmount [
 	needsToThrow := 0.
 	fuelTank := FuelTank withMaxFuel: anAmount.
 	ally := nil.
-	leak:=false.
+	leak := false
 ]
 
 { #category : #asserting }
@@ -140,7 +140,7 @@ SpaceShip >> losesTurns: amountOfTurns [
 SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFuelAmount [
 
 	needsToThrow = 0 ifFalse: [ ^ self ].
-	self checkLeakPenaltyToDecreaseFuel:aFuelAmount.
+	self checkLeakPenaltyToDecreaseFuel: aFuelAmount.
 
 	fuelTank isEmpty
 		ifTrue: [

@@ -13,5 +13,5 @@ NitroCard >> effect [
 { #category : #delegating }
 NitroCard >> uses: cardPlayResolver [
 
-	cardPlayResolver resolveANitroCardPlay:self
+	cardPlayResolver resolveANitroCardPlay: self
 ]

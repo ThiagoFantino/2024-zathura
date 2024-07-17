@@ -13,5 +13,5 @@ LeakCard >> cancelEffectUsing: cardPlayResolver [
 { #category : #delegating }
 LeakCard >> uses: cardPlayResolver [
 
-	cardPlayResolver resolveALeakCardPlay:self
+	cardPlayResolver resolveALeakCardPlay: self
 ]

@@ -27,9 +27,7 @@ Board class >> of: tiles withMeasures: units [
 
 	self isValid: tiles.
 	self assertValidQuantityOf: units valueAsParsecs.
-	^ self new
-		  initializeOf: tiles
-		  withDistance: units
+	^ self new initializeOf: tiles withDistance: units
 ]
 
 { #category : #initialization }
@@ -42,8 +40,7 @@ Board >> amountOfTiles [
 Board >> calculateNewLapWhen: aSpaceship advances: anAmountOfTilesToMove [
 
 	| tilesSinceBeginning |
-	tilesSinceBeginning := (aSpaceship tileNumber)
-	                       + anAmountOfTilesToMove
+	tilesSinceBeginning := aSpaceship tileNumber + anAmountOfTilesToMove
 	                       + (aSpaceship lap - 1 * self amountOfTiles).
 	^ tilesSinceBeginning - 1 // self amountOfTiles + 1
 ]
@@ -99,8 +96,8 @@ Board >> move: aSpaceship by: anAmountOfTilesToMove [
 		          advances: anAmountOfTilesToMove.
 	lapsToMove := (newLap min: laps + 1 max: 1) - aSpaceship lap.
 	tilesToMove := self
-		                  calculateTilesToMoveWhen: aSpaceship
-		                  moves: anAmountOfTilesToMove.
+		               calculateTilesToMoveWhen: aSpaceship
+		               moves: anAmountOfTilesToMove.
 
 	costToMove := (lapsToMove * self amountOfTiles + tilesToMove) abs.
 	aSpaceship

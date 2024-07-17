@@ -7,5 +7,5 @@ Class {
 { #category : #delegating }
 RedoCard >> uses: cardPlayResolver [
 
-	cardPlayResolver resolveARedoCardPlay:self
+	cardPlayResolver resolveARedoCardPlay: self
 ]

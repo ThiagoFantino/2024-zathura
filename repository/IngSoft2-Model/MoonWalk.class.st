@@ -10,7 +10,7 @@ Class {
 { #category : #'instance creation' }
 MoonWalk class >> backwardDistance: anAmountOfTiles [
 
-	^ self new initializedWith: anAmountOfTiles 
+	^ self new initializedWith: anAmountOfTiles
 ]
 
 { #category : #initialization }

@@ -31,7 +31,8 @@ TurnHandler >> changeTurns [
 { #category : #playing }
 TurnHandler >> checkNitroTurns: spaceshipTurn [
 
-(spaceshipTurn nitroTurns > 0) ifTrue: [spaceshipTurn assignNitroTurns: -1 ]
+	spaceshipTurn nitroTurns > 0 ifTrue: [
+		spaceshipTurn assignNitroTurns: -1 ]
 ]
 
 { #category : #initialization }
