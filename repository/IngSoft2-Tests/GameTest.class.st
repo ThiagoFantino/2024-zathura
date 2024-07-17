@@ -4,6 +4,15 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
+{ #category : #accessing }
+GameTest >> assert: aSpaceship isAt: aTileNumber with: aLap in: aGame [
+
+	self
+		assert: (aGame spaceshipCalled: aSpaceship) tileNumber
+		equals: aTileNumber.
+	self assert: (aGame spaceshipCalled: aSpaceship) lap equals: aLap
+]
+
 { #category : #playing }
 GameTest >> playUntilFinished: aGame [
 

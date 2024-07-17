@@ -81,7 +81,7 @@ Game >> addToDiscardDeck: aCard [
 Game >> anySpaceShipAtLastTileAndLap [
 
 	^ spaceships anySatisfy: [ :aSpaceship |
-		  board laps + 1 = aSpaceship lap and: [ 1 = aSpaceship position ] ]
+		  board laps + 1 = aSpaceship lap and: [ 1 = aSpaceship tileNumber ] ]
 ]
 
 { #category : #testing }
@@ -289,9 +289,9 @@ Game >> spaceShipsPositionsRanking [
 	spaceShipsPositions := spaceships.
 
 	^ spaceShipsPositions asSortedCollection: [ :spaceShipA :spaceShipB |
-		  spaceShipA lap - 1 * board amountOfTiles + spaceShipA position
+		  spaceShipA lap - 1 * board amountOfTiles + spaceShipA tileNumber
 		  >=
-		  (spaceShipB lap - 1 * board amountOfTiles + spaceShipB position) ]
+		  (spaceShipB lap - 1 * board amountOfTiles + spaceShipB tileNumber) ]
 ]
 
 { #category : #asserting }
@@ -324,7 +324,7 @@ Game >> winner [
 	self hasEnded ifFalse: [ ^ self hasEnded ].
 
 	winner := spaceships detect: [ :aSpaceship |
-		          aSpaceship position = 1 and: [
+		          aSpaceship tileNumber = 1 and: [
 			          aSpaceship lap = (board laps + 1) ] ].
 	^ winner
 ]

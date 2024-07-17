@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'name',
-		'position',
+		'tileNumber',
 		'lap',
 		'turnsToLose',
 		'needsToThrow',
@@ -44,7 +44,7 @@ SpaceShip >> ally [
 { #category : #playing }
 SpaceShip >> applyPenaltyForEmptyFuelTank [
 
-	position := 1.
+	tileNumber := 1.
 	fuelTank refuelToMax.
 	self losesTurns: 2.
 	leak := false.
@@ -108,7 +108,7 @@ SpaceShip >> handleEmptyFuelTankForMovePositionBy: aNumber lapBy: quantityOfLaps
 SpaceShip >> initialize: aName withMaxFuel: anAmount [
 
 	name := aName.
-	position := 1.
+	tileNumber := 1.
 	lap := 1.
 	turnsToLose := 0.
 	nitroTurns := 0.
@@ -154,7 +154,7 @@ SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFu
 { #category : #playing }
 SpaceShip >> moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove [
 
-	position := position + aNumber.
+	tileNumber := tileNumber + aNumber.
 	lap := lap + quantityOfLapsToMove
 ]
 
@@ -168,12 +168,6 @@ SpaceShip >> name [
 SpaceShip >> nitroTurns [
 
 	^ nitroTurns
-]
-
-{ #category : #'accessing - arguments' }
-SpaceShip >> position [
-
-	^ position
 ]
 
 { #category : #playing }
@@ -203,6 +197,12 @@ SpaceShip >> skipTurn [
 
 	self losesTurns: 1.
 	fuelTank refuelToMax
+]
+
+{ #category : #'accessing - arguments' }
+SpaceShip >> tileNumber [
+
+	^ tileNumber
 ]
 
 { #category : #accessing }

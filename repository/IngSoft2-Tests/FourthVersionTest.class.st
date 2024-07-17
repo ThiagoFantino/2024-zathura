@@ -39,8 +39,8 @@ FourthVersionTest >> testFV01DeckHasALimitedAmountOfCards [
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 2.
 	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size equals: 2.
 	self assert: aGame deckLength equals: 1
@@ -81,8 +81,8 @@ FourthVersionTest >> testFV02WhenAnInstantCardIsUsedItGoesToTheDiscardDeck [
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 	self assert: aGame discardDecklength equals: 0.
 
 	aGame play: aNitroCard by: 'Danny' targetting: 'Danny'.
@@ -93,8 +93,8 @@ FourthVersionTest >> testFV02WhenAnInstantCardIsUsedItGoesToTheDiscardDeck [
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
+	self assert: 'Danny' isAt: 6 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 6 with: 1 in: aGame.
 	self assert: aGame discardDecklength equals: 2
 ]
 
@@ -131,7 +131,7 @@ FourthVersionTest >> testFV03WhenDeckIsEmptyDiscardDeckIsShuffledAndThatIsTheNew
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
 	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 2.
 	self assert: aGame deckLength equals: 1.
 	self assert: aGame discardDecklength equals: 0.
@@ -144,7 +144,7 @@ FourthVersionTest >> testFV03WhenDeckIsEmptyDiscardDeckIsShuffledAndThatIsTheNew
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
+	self assert: 'Danny' isAt: 6 with: 1 in: aGame.
 	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 2.
 	self assert: aGame deckLength equals: 1.
 	self assert: aGame discardDecklength equals: 0
@@ -269,16 +269,16 @@ FourthVersionTest >> testFV05WhenSpaceshipUsesNitroCardItAddsThreeToTheTotalRoll
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 
 	aGame play: aNitroCard by: 'Danny' targetting: 'Danny'.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3
+	self assert: 'Danny' isAt: 6 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 3 with: 1 in: aGame.
 ]
 
 { #category : #tests }
@@ -327,8 +327,8 @@ FourthVersionTest >> testFV06WhenSpaceshipUsesNitroCardItAlsoLastsForThreeTurns 
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 
 	aGame play: aNitroCard by: 'Walter' targetting: 'Walter'.
 	self assert: (aGame spaceshipCalled: 'Walter') nitroTurns equals: 3.
@@ -336,25 +336,25 @@ FourthVersionTest >> testFV06WhenSpaceshipUsesNitroCardItAlsoLastsForThreeTurns 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
+	self assert: 'Walter' isAt: 5 with: 1 in: aGame.
 	self assert: (aGame spaceshipCalled: 'Walter') nitroTurns equals: 2.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 9.
+	self assert: 'Walter' isAt: 9 with: 1 in: aGame.
 	self assert: (aGame spaceshipCalled: 'Walter') nitroTurns equals: 1.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 13.
+	self assert: 'Walter' isAt: 13 with: 1 in: aGame.
 	self assert: (aGame spaceshipCalled: 'Walter') nitroTurns equals: 0.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 14
+	self assert: 'Walter' isAt: 14 with: 1 in: aGame.
 ]
 
 { #category : #tests }
@@ -390,8 +390,8 @@ FourthVersionTest >> testFV07WhenSpaceshipUsesLeakCardItDuplicatesTheConsumption
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 	self
 		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
 		equals: 12.
@@ -404,8 +404,8 @@ FourthVersionTest >> testFV07WhenSpaceshipUsesLeakCardItDuplicatesTheConsumption
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
+	self assert: 'Danny' isAt: 3 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 3 with: 1 in: aGame.
 	self
 		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
 		equals: 10.
@@ -447,8 +447,8 @@ FourthVersionTest >> testFV08LeakCardIsCancelledWhenSpaceshipRunsOutOfFuel [
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 	self
 		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
 		equals: 6.
@@ -461,8 +461,8 @@ FourthVersionTest >> testFV08LeakCardIsCancelledWhenSpaceshipRunsOutOfFuel [
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
+	self assert: 'Danny' isAt: 3 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 3 with: 1 in: aGame.
 	self
 		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
 		equals: 4.
@@ -473,8 +473,8 @@ FourthVersionTest >> testFV08LeakCardIsCancelledWhenSpaceshipRunsOutOfFuel [
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: 'Danny' isAt: 4 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 	self
 		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
 		equals: 3.
@@ -487,8 +487,8 @@ FourthVersionTest >> testFV08LeakCardIsCancelledWhenSpaceshipRunsOutOfFuel [
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
+	self assert: 'Danny' isAt: 7 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 2 with: 1 in: aGame.
 	self
 		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
 		equals: 0.
@@ -529,8 +529,8 @@ FourthVersionTest >> testFV09LeakCardAlsoIsCancelledWhenSpaceshipUsesCancellatio
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 	self
 		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
 		equals: 12.
@@ -540,8 +540,8 @@ FourthVersionTest >> testFV09LeakCardAlsoIsCancelledWhenSpaceshipUsesCancellatio
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
+	self assert: 'Danny' isAt: 3 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 3 with: 1 in: aGame.
 	self
 		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
 		equals: 8.
@@ -551,8 +551,8 @@ FourthVersionTest >> testFV09LeakCardAlsoIsCancelledWhenSpaceshipUsesCancellatio
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
+	self assert: 'Danny' isAt: 5 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 5 with: 1 in: aGame.
 	self
 		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
 		equals: 6
@@ -591,7 +591,7 @@ FourthVersionTest >> testFV10WhenDeckIsEmptyAndDiscardDeckIsEmptyNoCardsCanBeTak
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
 	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 2.
 	self assert: aGame deckLength equals: 0.
 	self assert: aGame discardDecklength equals: 0.
@@ -636,7 +636,7 @@ FourthVersionTest >> testFV11WhenDiscardDeckIsEmptyAndACardFromDeckIsUsedBothEnd
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
 	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 2.
 	self assert: aGame deckLength equals: 0.
 	self assert: aGame discardDecklength equals: 0.
@@ -857,21 +857,21 @@ FourthVersionTest >> testFV16RepeatCardGoesToDiscardDeckAfterItIsUsed [
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
+	self assert: 'Danny' isAt: 7 with: 1 in: aGame.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
+	self assert: 'Danny' isAt: 7 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 2 with: 1 in: aGame.
 
 
 	aGame play: aRepeatCard by: 'Walter' targetting: 'Danny'.
 	self assert: aGame discardDecklength equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2
+	self assert: 'Danny' isAt: 3 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 2 with: 1 in: aGame.
 ]
 
 { #category : #tests }
@@ -908,9 +908,8 @@ FourthVersionTest >> testFV17RedoCardDiscardWhenItCopiesAPermanentCard [
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 
 
 	aGame play: anAccelerationCard by: 'Danny' targetting: 'all'.
@@ -960,8 +959,8 @@ FourthVersionTest >> testFV18LeakCardCannotBePlayedWhenItIsNotSpaceshipTurnAsItI
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
 
 	self
 		should: [ aGame play: aLeakCard by: 'Walter' targetting: 'Danny' ]
