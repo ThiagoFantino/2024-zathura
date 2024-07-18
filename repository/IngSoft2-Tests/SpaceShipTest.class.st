@@ -33,10 +33,12 @@ SpaceShipTest >> testASpaceshipCanBeCreatedWithFuel [
 { #category : #running }
 SpaceShipTest >> testASpaceshipCanMoveBackwards [
 
-	| aSpaceShip |
+	| aSpaceShip pos1 pos2 |
 	aSpaceShip := SpaceShip called: 'Danny' withMaxFuel: 10.
-	aSpaceShip movePositionBy: 5 lapBy: 0 neededFuel: 0.
-	aSpaceShip movePositionBy: -2 lapBy: 0 neededFuel: 0.
+	pos1 := SpaceShipPosition createAt: 5 and: 1.
+	pos2 := SpaceShipPosition createAt: 4 and: 1.
+	aSpaceShip moveTo: pos1 needing: 5.
+	aSpaceShip moveTo: pos2 needing: 1.
 
 	self assert: aSpaceShip tileNumber equals: 4
 ]
@@ -55,9 +57,10 @@ SpaceShipTest >> testASpaceshipCannotBeCreatedWithoutAName [
 { #category : #running }
 SpaceShipTest >> testASpaceshipIsMovedOnePosition [
 
-	| aSpaceShip |
+	| aSpaceShip pos |
 	aSpaceShip := SpaceShip called: 'Danny' withMaxFuel: 10.
-	aSpaceShip movePositionBy: 1 lapBy: 0 neededFuel: 1.
+	pos := SpaceShipPosition createAt: 2 and: 1.
+	aSpaceShip moveTo: pos needing: 1.
 	self assert: aSpaceShip tileNumber equals: 2
 ]
 

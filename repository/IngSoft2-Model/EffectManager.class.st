@@ -16,6 +16,12 @@ EffectManager class >> usedIn: aGame with: aBoard affecting: someShips [
 	^ self new initializeIn: aGame using: aBoard affecting: someShips
 ]
 
+{ #category : #'as yet unclassified' }
+EffectManager >> applyBlackHoleEffectTo: aSpaceShip [
+
+	board move: aSpaceShip by: -4
+]
+
 { #category : #initialization }
 EffectManager >> applyEffectOn: aSpaceship [
 
@@ -25,14 +31,27 @@ EffectManager >> applyEffectOn: aSpaceship [
 	effectToApply triggeredBy: aSpaceship on: self
 ]
 
+{ #category : #'as yet unclassified' }
+EffectManager >> applyHyperGravityEffectOf: needsToThrow to: aSpaceship [
+
+	aSpaceship changeRollingResultNeededToMove: needsToThrow
+]
+
 { #category : #playing }
 EffectManager >> applyMoonwalkMoving: anAmountOfTiles notAffecting: aShip [
 
+	(self getAllButOneSpaceship: aShip) do: [ :spaceship |
+		board move: spaceship by: anAmountOfTiles ]
+]
+
+{ #category : #playing }
+EffectManager >> getAllButOneSpaceship: theSpaceShip [
+
 	| filteredShips |
 	filteredShips := spaceships select: [ :spaceship |
-		                 spaceship ~= aShip ].
-	filteredShips do: [ :spaceship |
-		board move: spaceship by: anAmountOfTiles ]
+		                 spaceship ~= theSpaceShip ].
+
+	^ filteredShips
 ]
 
 { #category : #playing }

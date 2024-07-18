@@ -10,12 +10,6 @@ AllyCard >> cancelEffectUsing: cardPlayResolver [
 	cardPlayResolver cancelAlly: self
 ]
 
-{ #category : #initialization }
-AllyCard >> effect [
-
-	^ 0
-]
-
 { #category : #delegating }
 AllyCard >> uses: cardPlayResolver [
 

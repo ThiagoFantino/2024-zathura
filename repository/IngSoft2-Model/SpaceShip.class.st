@@ -10,7 +10,8 @@ Class {
 		'ally',
 		'fuelTank',
 		'leak',
-		'nitroTurns'
+		'nitroTurns',
+		'position'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -30,6 +31,14 @@ SpaceShip class >> called: aName withMaxFuel: anAmount [
 ]
 
 { #category : #activation }
+SpaceShip >> >= anotherSpaceship [
+
+	^ self lap > anotherSpaceship lap or:
+		  (self lap = anotherSpaceship lap and:
+			   self tileNumber > anotherSpaceship tileNumber)
+]
+
+{ #category : #activation }
 SpaceShip >> activateLeakCardPenalty [
 
 	leak := true
@@ -44,7 +53,7 @@ SpaceShip >> ally [
 { #category : #playing }
 SpaceShip >> applyPenaltyForEmptyFuelTank [
 
-	tileNumber := 1.
+	self resetPosition.
 	fuelTank refuelToMax.
 	self losesTurns: 2.
 	leak := false
@@ -57,9 +66,30 @@ SpaceShip >> assignNitroTurns: amountOfTurns [
 ]
 
 { #category : #playing }
+SpaceShip >> canPlay [
+
+	turnsToLose <= 0 ifTrue: [ ^ true ].
+	^ false
+]
+
+{ #category : #playing }
+SpaceShip >> canProvideToAnAlly: anAmountOfFuel [
+
+	fuelTank currentFuel > anAmountOfFuel ifTrue: [ ^ true ].
+	^ false
+]
+
+{ #category : #playing }
 SpaceShip >> changeRollingResultNeededToMove: aNumber [
 
 	needsToThrow := aNumber
+]
+
+{ #category : #playing }
+SpaceShip >> checkForRollInHyperGravity: rolledNumber [
+
+	(needsToThrow = 0 or: [ rolledNumber = needsToThrow ]) ifTrue: [
+		needsToThrow := 0 ]
 ]
 
 { #category : #playing }
@@ -83,33 +113,31 @@ SpaceShip >> fuelTank [
 ]
 
 { #category : #playing }
-SpaceShip >> handleAllyFuelForMovePositionBy: aNumber lapBy: quantityOfLapsToMove [
+SpaceShip >> handleAllyFuelToMoveFor: positionAfterMovement [
 
-	ally fuelTank currentFuel < fuelTank currentFuel abs
+	(ally canProvideToAnAlly: fuelTank currentFuel abs)
 		ifTrue: [
-			ally applyPenaltyForEmptyFuelTank.
-			self applyPenaltyForEmptyFuelTank ]
-		ifFalse: [
 			ally decreaseFuelBy: fuelTank currentFuel abs.
 			fuelTank fuel: 0.
-			self moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove ]
+			self moveToNextPostion: positionAfterMovement ]
+		ifFalse: [
+			ally applyPenaltyForEmptyFuelTank.
+			self applyPenaltyForEmptyFuelTank ]
 ]
 
 { #category : #playing }
-SpaceShip >> handleEmptyFuelTankForMovePositionBy: aNumber lapBy: quantityOfLapsToMove [
+SpaceShip >> handleEmptyFuelTankToMoveFor: positionAfterMovement [
 
-	ally ifNil: [ self applyPenaltyForEmptyFuelTank ] ifNotNil: [
-		self
-			handleAllyFuelForMovePositionBy: aNumber
-			lapBy: quantityOfLapsToMove ]
+	ally
+		ifNil: [ self applyPenaltyForEmptyFuelTank ]
+		ifNotNil: [ self handleAllyFuelToMoveFor: positionAfterMovement ]
 ]
 
 { #category : #initialization }
 SpaceShip >> initialize: aName withMaxFuel: anAmount [
 
 	name := aName.
-	tileNumber := 1.
-	lap := 1.
+	position := SpaceShipPosition createAt: 1 and: 1.
 	turnsToLose := 0.
 	nitroTurns := 0.
 	needsToThrow := 0.
@@ -127,7 +155,7 @@ SpaceShip >> isAlliedWith: anotherSpaceship [
 { #category : #'accessing - arguments' }
 SpaceShip >> lap [
 
-	^ lap
+	^ position lap
 ]
 
 { #category : #playing }
@@ -137,25 +165,20 @@ SpaceShip >> losesTurns: amountOfTurns [
 ]
 
 { #category : #playing }
-SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFuelAmount [
+SpaceShip >> moveTo: positionAfterMovement needing: amountOfFuelNeeded [
 
 	needsToThrow = 0 ifFalse: [ ^ self ].
-	self checkLeakPenaltyToDecreaseFuel: aFuelAmount.
+	self checkLeakPenaltyToDecreaseFuel: amountOfFuelNeeded.
 
 	fuelTank isEmpty
-		ifTrue: [
-			self
-				handleEmptyFuelTankForMovePositionBy: aNumber
-				lapBy: quantityOfLapsToMove ]
-		ifFalse: [
-		self moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove ]
+		ifTrue: [ self handleEmptyFuelTankToMoveFor: positionAfterMovement ]
+		ifFalse: [ self moveToNextPostion: positionAfterMovement ]
 ]
 
 { #category : #playing }
-SpaceShip >> moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove [
+SpaceShip >> moveToNextPostion: positionAfterMovement [
 
-	tileNumber := tileNumber + aNumber.
-	lap := lap + quantityOfLapsToMove
+	position := positionAfterMovement
 ]
 
 { #category : #accessing }
@@ -170,13 +193,24 @@ SpaceShip >> nitroTurns [
 	^ nitroTurns
 ]
 
+{ #category : #'accessing - arguments' }
+SpaceShip >> position [
+
+	^ position
+]
+
+{ #category : #'accessing - arguments' }
+SpaceShip >> resetPosition [
+
+	position resetPosition
+]
+
 { #category : #playing }
 SpaceShip >> rollDiceUsing: aDiceRoller [
 
 	| rolledNumber |
 	rolledNumber := aDiceRoller roll.
-	(needsToThrow = 0 or: [ rolledNumber = needsToThrow ]) ifTrue: [
-		needsToThrow := 0 ].
+	self checkForRollInHyperGravity: rolledNumber.
 	^ rolledNumber
 ]
 
@@ -202,7 +236,7 @@ SpaceShip >> skipTurn [
 { #category : #'accessing - arguments' }
 SpaceShip >> tileNumber [
 
-	^ tileNumber
+	^ position tileNumber
 ]
 
 { #category : #accessing }
