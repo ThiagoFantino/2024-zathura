@@ -70,12 +70,6 @@ EffectManager >> initializeIn: aGame using: aBoard affecting: someShips [
 ]
 
 { #category : #playing }
-EffectManager >> move: aSpaceShip by: anAmountOfTiles [
-
-	board move: aSpaceShip by: anAmountOfTiles
-]
-
-{ #category : #playing }
 EffectManager >> move: aSpaceship jumping: aQuantityOfParsec [
 
 	board move: aSpaceship jumping: aQuantityOfParsec
