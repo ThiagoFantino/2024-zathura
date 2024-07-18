@@ -16,7 +16,7 @@ EffectManager class >> usedIn: aGame with: aBoard affecting: someShips [
 	^ self new initializeIn: aGame using: aBoard affecting: someShips
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 EffectManager >> applyBlackHoleEffectTo: aSpaceShip [
 
 	board move: aSpaceShip by: -4
@@ -31,7 +31,7 @@ EffectManager >> applyEffectOn: aSpaceship [
 	effectToApply triggeredBy: aSpaceship on: self
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 EffectManager >> applyHyperGravityEffectOf: needsToThrow to: aSpaceship [
 
 	aSpaceship changeRollingResultNeededToMove: needsToThrow
@@ -93,7 +93,7 @@ EffectManager >> repeatLastEffectAppliedOn: aSpaceship [
 	lastEffectApplied triggeredBy: aSpaceship on: self
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 EffectManager >> teleport: aSpaceship to: tileToTeleport [
 
 	board move: aSpaceship toTile: tileToTeleport.

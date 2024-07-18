@@ -92,7 +92,7 @@ Board >> move: aSpaceship jumping: aQuantityOfParsec [
 	self move: aSpaceship by: tilesToMove
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Board >> move: aSpaceship toTile: tileToTeleport [
 
 	self move: aSpaceship by: tileToTeleport - aSpaceship tileNumber
