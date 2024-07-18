@@ -3,8 +3,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'name',
-		'tileNumber',
-		'lap',
 		'turnsToLose',
 		'needsToThrow',
 		'ally',

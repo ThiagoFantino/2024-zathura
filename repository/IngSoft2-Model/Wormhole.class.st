@@ -2,7 +2,6 @@ Class {
 	#name : #Wormhole,
 	#superclass : #Effect,
 	#instVars : [
-		'tilesToMove',
 		'tileToTeleport'
 	],
 	#category : #'IngSoft2-Model'
