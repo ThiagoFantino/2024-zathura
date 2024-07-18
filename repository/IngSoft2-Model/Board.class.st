@@ -92,6 +92,12 @@ Board >> move: aSpaceship jumping: aQuantityOfParsec [
 	self move: aSpaceship by: tilesToMove
 ]
 
+{ #category : #'as yet unclassified' }
+Board >> move: aSpaceship toTile: tileToTeleport [
+
+	self move: aSpaceship by: tileToTeleport - aSpaceship tileNumber
+]
+
 { #category : #initialization }
 Board >> moveAllSpaceshipsToFirstPosition: allSpaceShips [
 

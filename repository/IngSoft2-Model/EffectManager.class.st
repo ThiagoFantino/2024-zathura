@@ -92,3 +92,10 @@ EffectManager >> repeatLastEffectAppliedOn: aSpaceship [
 
 	lastEffectApplied triggeredBy: aSpaceship on: self
 ]
+
+{ #category : #'as yet unclassified' }
+EffectManager >> teleport: aSpaceship to: tileToTeleport [
+
+	board move: aSpaceship toTile: tileToTeleport.
+
+]
