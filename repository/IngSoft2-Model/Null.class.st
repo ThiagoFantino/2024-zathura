@@ -7,7 +7,7 @@ Class {
 { #category : #'instance creation' }
 Null class >> create [
 
-	^ self new initializeOf: OrderedCollection new
+	^ self new initializeOf:OrderedCollection new.
 ]
 
 { #category : #initialization }

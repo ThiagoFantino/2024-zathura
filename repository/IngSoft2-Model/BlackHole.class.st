@@ -7,5 +7,5 @@ Class {
 { #category : #playing }
 BlackHole >> triggeredBy: aSpaceship on: anEffectManager [
 
-	anEffectManager move: aSpaceship by: -4
+	anEffectManager applyBlackHoleEffectTo: aSpaceship
 ]

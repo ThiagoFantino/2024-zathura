@@ -22,5 +22,7 @@ HyperGravity >> initializedWith: aNumber [
 { #category : #playing }
 HyperGravity >> triggeredBy: aSpaceship on: anEffectManager [
 
-	aSpaceship changeRollingResultNeededToMove: needsToThrow
+	anEffectManager
+		applyHyperGravityEffectOf: needsToThrow
+		to: aSpaceship
 ]

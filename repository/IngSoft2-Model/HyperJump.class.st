@@ -20,11 +20,20 @@ HyperJump >> initializeOf: groupOfDistances [
 ]
 
 { #category : #playing }
-HyperJump >> triggeredBy: aSpaceship on: anEffectManager [
+HyperJump >> nextJumpValue [
 
 	| valueAsParsec |
 	valueAsParsec := (distances at: 1) valueAsParsecs.
-	anEffectManager move: aSpaceship jumping: valueAsParsec.
 	distances add: distances first.
-	distances removeFirst
+	distances removeFirst.
+	^ valueAsParsec
+]
+
+{ #category : #playing }
+HyperJump >> triggeredBy: aSpaceship on: anEffectManager [
+
+	| valueAsParsec |
+	valueAsParsec := self nextJumpValue.
+
+	anEffectManager move: aSpaceship jumping: valueAsParsec
 ]

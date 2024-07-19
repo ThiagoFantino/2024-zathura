@@ -122,8 +122,6 @@ CardPlayResolver >> resolveAnAllyCardPlay: aCard [
 
 	game assertIsTurnOf: cardUser.
 	game setAnAllianceBewtween: cardUser and: cardTarget.
-	game applyACardEffect: aCard to: cardUser.
-	game applyACardEffect: aCard to: cardTarget.
 	lastCardPlayed := aCard.
 	game removeFromHand: aCard to: cardUser
 ]

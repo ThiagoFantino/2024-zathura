@@ -1069,25 +1069,51 @@ ThirdVersionTest >> testTV21WhenSpaceshipUsesRepeatCardAfterAnatomicBombItTrigge
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
-	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
+	self
+		assert: 'Danny'
+		isAt: 1
+		with: 1
+		in: aGame.
+	self
+		assert: 'Walter'
+		isAt: 1
+		with: 1
+		in: aGame.
 
 
 	aGame playNextTurn.
-	self assert: 'Danny' isAt: 7 with: 1 in: aGame.
+	self
+		assert: 'Danny'
+		isAt: 7
+		with: 1
+		in: aGame.
 	aGame playNextTurn.
-	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
-	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
+	self
+		assert: 'Danny'
+		isAt: 1
+		with: 1
+		in: aGame.
+	self
+		assert: 'Walter'
+		isAt: 1
+		with: 1
+		in: aGame.
 
 	(aGame spaceshipCalled: 'Walter')
-		movePositionBy: 4
-		lapBy: 0
-		neededFuel: 0.
-	self assert: 'Walter' isAt: 5 with: 1 in: aGame.
+		moveTo: (SpaceShipPosition createAt: 5 and: 1)
+		needing: 0.
 
 	aGame play: aRepeatCard by: 'Walter' targetting: 'Danny'.
-	self assert: 'Danny' isAt: 1 with: 1 in: aGame.
-	self assert: 'Walter' isAt: 1 with: 1 in: aGame.
+	self
+		assert: 'Danny'
+		isAt: 1
+		with: 1
+		in: aGame.
+	self
+		assert: 'Walter'
+		isAt: 1
+		with: 1
+		in: aGame
 ]
 
 { #category : #tests }
@@ -1377,7 +1403,7 @@ ThirdVersionTest >> testTV26WhenSpaceshipUsesRepeatCardAfterWormHoleItTriggersIt
 	
 	aGame play: aRepeatCard by: 'Walter'  targetting: 'Walter'.
 	self assert: 'Danny' isAt: 5 with: 1 in: aGame.
-	self assert: 'Walter' isAt: 3 with: 1 in: aGame.
+	self assert: 'Walter' isAt: 5 with: 1 in: aGame.
 	
 
 

@@ -8,12 +8,12 @@ Class {
 }
 
 { #category : #asserting }
-Distribution class >> assertSumOfProbabilitiesEqualsToOne: probabilityTileList [
+Distribution class >> assertSumOfProbabilitiesEqualsToOne: probabilityElementList [
 
-	(probabilityTileList
+	(probabilityElementList
 		 inject: 0
-		 into: [ :initial :probabilityTile |
-		 initial + probabilityTile probability ]) = 1 ifFalse: [
+		 into: [ :initial :probabilityElement |
+		 initial + probabilityElement probability ]) = 1 ifFalse: [
 		Error signal: 'The sum of the probabilities must be equal to 1!' ]
 ]
 

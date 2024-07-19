@@ -153,7 +153,10 @@ Game >> check: rollingResult ToAssignRewardForMaxRollTo: spaceshipTurn [
 { #category : #asserting }
 Game >> checkEndGame [
 
-	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ]
+	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ].
+
+	(spaceships anySatisfy: [ :aSpaceship | aSpaceship canPlay ])
+		ifFalse: [ hasEnded := true ]
 ]
 
 { #category : #accessing }
@@ -305,9 +308,7 @@ Game >> spaceShipsPositionsRanking [
 	spaceShipsPositions := spaceships.
 
 	^ spaceShipsPositions asSortedCollection: [ :spaceShipA :spaceShipB |
-		  spaceShipA lap - 1 * board amountOfTiles + spaceShipA tileNumber
-		  >=
-		  (spaceShipB lap - 1 * board amountOfTiles + spaceShipB tileNumber) ]
+		  spaceShipA >= spaceShipB ]
 ]
 
 { #category : #asserting }
@@ -339,8 +340,6 @@ Game >> winner [
 	| winner |
 	self hasEnded ifFalse: [ ^ self hasEnded ].
 
-	winner := spaceships detect: [ :aSpaceship |
-		          aSpaceship tileNumber = 1 and: [
-			          aSpaceship lap = (board laps + 1) ] ].
+	winner := self spaceShipsPositionsRanking first.
 	^ winner
 ]

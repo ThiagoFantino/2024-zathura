@@ -2,7 +2,7 @@ Class {
 	#name : #Wormhole,
 	#superclass : #Effect,
 	#instVars : [
-		'tilesToMove'
+		'tileToTeleport'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -18,18 +18,17 @@ Wormhole class >> assertAtLeastTwoWormholes: positionOfTheWormholes [
 Wormhole class >> betweenTiles: positionOfTheWormholes [
 
 	self assertAtLeastTwoWormholes: positionOfTheWormholes.
-	^ self new initialize:
-		  positionOfTheWormholes last - positionOfTheWormholes first
+	^ self new initialize: positionOfTheWormholes last
 ]
 
 { #category : #initialization }
-Wormhole >> initialize: aNumberOfTilesToMove [
+Wormhole >> initialize: aTileToTeleportTo [
 
-	tilesToMove := aNumberOfTilesToMove
+	tileToTeleport := aTileToTeleportTo
 ]
 
 { #category : #playing }
 Wormhole >> triggeredBy: aSpaceship on: anEffectManager [
 
-	anEffectManager move: aSpaceship by: tilesToMove
+	anEffectManager teleport: aSpaceship to: tileToTeleport.
 ]
