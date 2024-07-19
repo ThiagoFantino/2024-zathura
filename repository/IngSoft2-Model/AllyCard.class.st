@@ -11,7 +11,7 @@ AllyCard >> cancelEffectUsing: cardPlayResolver [
 ]
 
 { #category : #delegating }
-AllyCard >> uses: cardPlayResolver [
+AllyCard >> resolvesUsing: cardPlayResolver [
 
 	cardPlayResolver resolveAnAllyCardPlay: self
 ]

@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #delegating }
-Card >> uses: cardPlayResolver [
+Card >> resolvesUsing: cardPlayResolver [
 
 	self subclassResponsibility
 ]

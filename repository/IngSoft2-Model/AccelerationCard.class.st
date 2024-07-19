@@ -17,7 +17,7 @@ AccelerationCard >> effect [
 ]
 
 { #category : #delegating }
-AccelerationCard >> uses: cardPlayResolver [
+AccelerationCard >> resolvesUsing: cardPlayResolver [
 
 	cardPlayResolver resolveAnAccelerationCardPlay: self
 ]

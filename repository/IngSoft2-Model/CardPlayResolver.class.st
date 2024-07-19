@@ -58,7 +58,7 @@ CardPlayResolver >> resolve: aCardPlayed by: aSpaceship targetting: anotherSpace
 
 	cardUser := aSpaceship.
 	cardTarget := anotherSpaceship.
-	aCardPlayed uses: self
+	aCardPlayed resolvesUsing: self
 ]
 
 { #category : #resolving }

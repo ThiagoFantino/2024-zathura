@@ -1,5 +1,5 @@
 Class {
-	#name : #ProbabilityAssigner,
+	#name : #ProbabilityElement,
 	#superclass : #Object,
 	#instVars : [
 		'element',
@@ -9,14 +9,14 @@ Class {
 }
 
 { #category : #asserting }
-ProbabilityAssigner class >> assertIsBetweenZeroAndOne: probability [
+ProbabilityElement class >> assertIsBetweenZeroAndOne: probability [
 
 	(probability between: 0 and: 1) ifFalse: [
 		Error signal: 'Probability must be between 0 and 1!' ]
 ]
 
 { #category : #'instance creation' }
-ProbabilityAssigner class >> with: element and: probability [
+ProbabilityElement class >> with: element and: probability [
 
 	self assertIsBetweenZeroAndOne: probability.
 
@@ -24,20 +24,20 @@ ProbabilityAssigner class >> with: element and: probability [
 ]
 
 { #category : #accessing }
-ProbabilityAssigner >> element [
+ProbabilityElement >> element [
 
 	^ element
 ]
 
 { #category : #initialization }
-ProbabilityAssigner >> initializeWith: anElement and: aProbability [
+ProbabilityElement >> initializeWith: anElement and: aProbability [
 
 	element := anElement.
 	probability := aProbability
 ]
 
 { #category : #accessing }
-ProbabilityAssigner >> probability [
+ProbabilityElement >> probability [
 
 	^ probability
 ]
