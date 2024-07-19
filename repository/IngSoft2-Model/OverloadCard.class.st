@@ -17,7 +17,7 @@ OverloadCard >> effect [
 ]
 
 { #category : #delegating }
-OverloadCard >> uses: cardPlayResolver [
+OverloadCard >> resolvesUsing: cardPlayResolver [
 
 	cardPlayResolver resolveAnOverloadCardPlay: self
 ]

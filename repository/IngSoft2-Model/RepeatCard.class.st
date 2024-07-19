@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #delegating }
-RepeatCard >> uses: cardPlayResolver [
+RepeatCard >> resolvesUsing: cardPlayResolver [
 
 	cardPlayResolver resolveARepeatCardPlay: self
 ]

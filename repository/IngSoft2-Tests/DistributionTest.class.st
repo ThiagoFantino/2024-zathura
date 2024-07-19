@@ -21,25 +21,25 @@ DistributionTest >> testEffectDistributionSumOfProbabilitiesMustBeEqualToOne [
 	self
 		should: [
 			effectDistribution := Distribution with: {
-					                      (ProbabilityAssigner
+					                      (ProbabilityElement
 						                       with: Null new
 						                       and: 0.30).
-					                      (ProbabilityAssigner
+					                      (ProbabilityElement
 						                       with: BlackHole new
 						                       and: 0.20).
-					                      (ProbabilityAssigner
+					                      (ProbabilityElement
 						                       with: (HyperGravity needsToThrow: 3)
 						                       and: 0.20).
-					                      (ProbabilityAssigner
+					                      (ProbabilityElement
 						                       with: (MoonWalk backwardDistance: 3)
 						                       and: 0.10).
-					                      (ProbabilityAssigner
+					                      (ProbabilityElement
 						                       with: CardGiver new
 						                       and: 0.10).
-					                      (ProbabilityAssigner
+					                      (ProbabilityElement
 						                       with: (HyperJump of: { 3. 2. 1 })
 						                       and: 0.08).
-					                      (ProbabilityAssigner
+					                      (ProbabilityElement
 						                       with: AtomicBomb new
 						                       and: 0.03) } ]
 		raise: Error
@@ -50,7 +50,7 @@ DistributionTest >> testEffectDistributionSumOfProbabilitiesMustBeEqualToOne [
 DistributionTest >> testProbabilityEffectProbabilityMustBeBetwenZeroAndOne [
 
 	self
-		should: [ ProbabilityAssigner with: Null new and: 2 ]
+		should: [ ProbabilityElement with: Null new and: 2 ]
 		raise: Error
 		withMessage: 'Probability must be between 0 and 1!'
 ]
@@ -68,25 +68,25 @@ DistributionTest >> testThatAtomicBombEffectHasTwoPercentProbability [
 	cardGiverEffect := CardGiver new.
 
 	effectDistribution := Distribution with: {
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: nullEffect
 				                       and: 0.30).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: cardGiverEffect
 				                       and: 0.10).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: blackHoleEffect
 				                       and: 0.2).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: hyperGravityEffect
 				                       and: 0.2).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: moonWalkEffect
 				                       and: 0.10).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: hyperJumpEffect
 				                       and: 0.08).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: atomicBombEffect
 				                       and: 0.02) }.
 
@@ -108,25 +108,25 @@ DistributionTest >> testThatBlackHoleEffectHasTwentyPercentProbability [
 	cardGiverEffect := CardGiver new.
 
 	effectDistribution := Distribution with: {
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: nullEffect
 				                       and: 0.30).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: cardGiverEffect
 				                       and: 0.10).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: blackHoleEffect
 				                       and: 0.2).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: hyperGravityEffect
 				                       and: 0.2).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: moonWalkEffect
 				                       and: 0.10).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: hyperJumpEffect
 				                       and: 0.08).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: atomicBombEffect
 				                       and: 0.02) }.
 
@@ -148,25 +148,25 @@ DistributionTest >> testThatCardGiverHasTenPercentProbability [
 	cardGiverEffect := CardGiver new.
 
 	effectDistribution := Distribution with: {
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: nullEffect
 				                       and: 0.30).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: cardGiverEffect
 				                       and: 0.10).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: blackHoleEffect
 				                       and: 0.2).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: hyperGravityEffect
 				                       and: 0.2).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: moonWalkEffect
 				                       and: 0.10).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: hyperJumpEffect
 				                       and: 0.08).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: atomicBombEffect
 				                       and: 0.02) }.
 
@@ -188,25 +188,25 @@ DistributionTest >> testThatHyperGravityEffectHasTwentyPercentProbability [
 	cardGiverEffect := CardGiver new.
 
 	effectDistribution := Distribution with: {
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: nullEffect
 				                       and: 0.30).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: cardGiverEffect
 				                       and: 0.10).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: blackHoleEffect
 				                       and: 0.2).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: hyperGravityEffect
 				                       and: 0.2).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: moonWalkEffect
 				                       and: 0.10).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: hyperJumpEffect
 				                       and: 0.08).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: atomicBombEffect
 				                       and: 0.02) }.
 
@@ -228,25 +228,25 @@ DistributionTest >> testThatHyperJumpEffectHasEightPercentProbability [
 	cardGiverEffect := CardGiver new.
 
 	effectDistribution := Distribution with: {
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: nullEffect
 				                       and: 0.30).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: cardGiverEffect
 				                       and: 0.10).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: blackHoleEffect
 				                       and: 0.2).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: hyperGravityEffect
 				                       and: 0.2).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: moonWalkEffect
 				                       and: 0.10).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: hyperJumpEffect
 				                       and: 0.08).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: atomicBombEffect
 				                       and: 0.02) }.
 
@@ -268,25 +268,25 @@ DistributionTest >> testThatMoonWalkEffectHasTenPercentProbability [
 	cardGiverEffect := CardGiver new.
 
 	effectDistribution := Distribution with: {
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: nullEffect
 				                       and: 0.30).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: cardGiverEffect
 				                       and: 0.10).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: blackHoleEffect
 				                       and: 0.2).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: hyperGravityEffect
 				                       and: 0.2).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: moonWalkEffect
 				                       and: 0.10).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: hyperJumpEffect
 				                       and: 0.08).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: atomicBombEffect
 				                       and: 0.02) }.
 
@@ -308,25 +308,25 @@ DistributionTest >> testThatNullEffectHasThirtyPercentProbability [
 	cardGiverEffect := CardGiver new.
 
 	effectDistribution := Distribution with: {
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: nullEffect
 				                       and: 0.30).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: cardGiverEffect
 				                       and: 0.10).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: blackHoleEffect
 				                       and: 0.2).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: hyperGravityEffect
 				                       and: 0.2).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: moonWalkEffect
 				                       and: 0.10).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: hyperJumpEffect
 				                       and: 0.08).
-			                      (ProbabilityAssigner
+			                      (ProbabilityElement
 				                       with: atomicBombEffect
 				                       and: 0.02) }.
 

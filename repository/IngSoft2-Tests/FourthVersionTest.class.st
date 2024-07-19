@@ -24,7 +24,7 @@ FourthVersionTest >> testFV01DeckHasALimitedAmountOfCards [
 	anAccelerationCard := AccelerationCard new.
 
 	cardsDistribution := Distribution with:
-		                     { (ProbabilityAssigner
+		                     { (ProbabilityElement
 			                      with: anAccelerationCard
 			                      and: 1) }.
 
@@ -74,7 +74,7 @@ FourthVersionTest >> testFV02WhenAnInstantCardIsUsedItGoesToTheDiscardDeck [
 	aNitroCard := NitroCard new.
 
 	cardsDistribution := Distribution with:
-		                     { (ProbabilityAssigner with: aNitroCard and: 1) }.
+		                     { (ProbabilityElement with: aNitroCard and: 1) }.
 
 	cardsCollection := cardsDistribution randomCollectionWith: 5.
 
@@ -140,9 +140,9 @@ FourthVersionTest >> testFV03WhenDeckIsEmptyDiscardDeckIsShuffledAndThatIsTheNew
 	aNitroCard := NitroCard new.
 
 	cardsDistribution := Distribution with:
-		                     { (ProbabilityAssigner with: aNitroCard and: 1) }.
+		                     { (ProbabilityElement with: aNitroCard and: 1) }.
 
-	cardsCollection := cardsDistribution randomCollectionWith: 5.
+	cardsCollection := cardsDistribution randomCollectionWith: 6.
 
 	aDeck := Deck of: cardsCollection.
 
@@ -159,24 +159,24 @@ FourthVersionTest >> testFV03WhenDeckIsEmptyDiscardDeckIsShuffledAndThatIsTheNew
 		with: 1
 		in: aGame.
 	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 2.
-	self assert: aGame deckLength equals: 1.
+	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size equals: 2.
+	self assert: aGame deckLength equals: 2.
 	self assert: aGame discardDecklength equals: 0.
 
 	aGame play: aNitroCard by: 'Danny' targetting: 'Danny'.
+	aGame play: aNitroCard by: 'Walter' targetting: 'Walter'.
 
 	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 1.
-	self assert: aGame deckLength equals: 1.
-	self assert: aGame discardDecklength equals: 1.
+	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size equals: 1.
+	self assert: aGame deckLength equals: 2.
+	self assert: aGame discardDecklength equals: 2.
 
 	aGame playNextTurn.
+	aGame playNextTurn.
 
-	self
-		assert: 'Danny'
-		isAt: 6
-		with: 1
-		in: aGame.
 	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 2.
-	self assert: aGame deckLength equals: 1.
+	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size equals: 2.
+	self assert: aGame deckLength equals: 2.
 	self assert: aGame discardDecklength equals: 0
 ]
 
@@ -207,24 +207,24 @@ FourthVersionTest >> testFV04DeckHasProbabilityOfOccurrence [
 	aLeakCard := LeakCard new.
 
 	cardsDistribution := Distribution with: {
-			                     (ProbabilityAssigner
+			                     (ProbabilityElement
 				                      with: anAllyCard
 				                      and: 0.20).
-			                     (ProbabilityAssigner
+			                     (ProbabilityElement
 				                      with: anOverloadCard
 				                      and: 0.20).
-			                     (ProbabilityAssigner
+			                     (ProbabilityElement
 				                      with: aCancellationCard
 				                      and: 0.20).
-			                     (ProbabilityAssigner
+			                     (ProbabilityElement
 				                      with: anAccelerationCard
 				                      and: 0.20).
-			                     (ProbabilityAssigner with: aRedoCard and: 0.10).
-			                     (ProbabilityAssigner with: aRepeatCard and: 0).
-			                     (ProbabilityAssigner
+			                     (ProbabilityElement with: aRedoCard and: 0.10).
+			                     (ProbabilityElement with: aRepeatCard and: 0).
+			                     (ProbabilityElement
 				                      with: aNitroCard
 				                      and: 0.05).
-			                     (ProbabilityAssigner with: aLeakCard and: 0.05) }.
+			                     (ProbabilityElement with: aLeakCard and: 0.05) }.
 
 	cardsCollection := cardsDistribution randomCollectionWith: 20.
 
@@ -286,7 +286,7 @@ FourthVersionTest >> testFV05WhenSpaceshipUsesNitroCardItAddsThreeToTheTotalRoll
 	aNitroCard := NitroCard new.
 
 	cardsDistribution := Distribution with:
-		                     { (ProbabilityAssigner with: aNitroCard and: 1) }.
+		                     { (ProbabilityElement with: aNitroCard and: 1) }.
 
 	cardsCollection := cardsDistribution randomCollectionWith: 5.
 
@@ -360,7 +360,7 @@ FourthVersionTest >> testFV06WhenSpaceshipUsesNitroCardItAlsoLastsForThreeTurns 
 	aNitroCard := NitroCard new.
 
 	cardsDistribution := Distribution with:
-		                     { (ProbabilityAssigner with: aNitroCard and: 1) }.
+		                     { (ProbabilityElement with: aNitroCard and: 1) }.
 
 	cardsCollection := cardsDistribution randomCollectionWith: 5.
 
@@ -447,7 +447,7 @@ FourthVersionTest >> testFV07WhenSpaceshipUsesLeakCardItDuplicatesTheConsumption
 	aLeakCard := LeakCard new.
 
 	cardsDistribution := Distribution with:
-		                     { (ProbabilityAssigner with: aLeakCard and: 1) }.
+		                     { (ProbabilityElement with: aLeakCard and: 1) }.
 
 	cardsCollection := cardsDistribution randomCollectionWith: 5.
 
@@ -520,7 +520,7 @@ FourthVersionTest >> testFV08LeakCardIsCancelledWhenSpaceshipRunsOutOfFuel [
 	aLeakCard := LeakCard new.
 
 	cardsDistribution := Distribution with:
-		                     { (ProbabilityAssigner with: aLeakCard and: 1) }.
+		                     { (ProbabilityElement with: aLeakCard and: 1) }.
 
 	cardsCollection := cardsDistribution randomCollectionWith: 5.
 
@@ -720,7 +720,7 @@ FourthVersionTest >> testFV10WhenDeckIsEmptyAndDiscardDeckIsEmptyNoCardsCanBeTak
 	anAllyCard := AllyCard new.
 
 	cardsDistribution := Distribution with:
-		                     { (ProbabilityAssigner with: anAllyCard and: 1) }.
+		                     { (ProbabilityElement with: anAllyCard and: 1) }.
 
 	cardsCollection := cardsDistribution randomCollectionWith: 4.
 
@@ -770,7 +770,7 @@ FourthVersionTest >> testFV11WhenDiscardDeckIsEmptyAndACardFromDeckIsUsedBothEnd
 	aNitroCard := NitroCard new.
 
 	cardsDistribution := Distribution with:
-		                     { (ProbabilityAssigner with: aNitroCard and: 1) }.
+		                     { (ProbabilityElement with: aNitroCard and: 1) }.
 
 	cardsCollection := cardsDistribution randomCollectionWith: 4.
 
