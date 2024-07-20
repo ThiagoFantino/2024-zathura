@@ -5,6 +5,53 @@ Class {
 }
 
 { #category : #tests }
+FourthVersionTest >> testBanana [
+
+	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard cardsDistribution cardsCollection |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withMeasures: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
+
+	anAccelerationCard := AccelerationCard new.
+
+	cardsDistribution := Distribution with:
+		                     { (ProbabilityElement
+			                      with: anAccelerationCard
+			                      and: 1) }.
+
+	cardsCollection := cardsDistribution randomCollectionWith: 5.
+
+	aDeck := Deck of: cardsCollection.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self
+		assert: 'Danny'
+		isAt: 1
+		with: 1
+		in: aGame.
+	self
+		assert: 'Walter'
+		isAt: 1
+		with: 1
+		in: aGame
+]
+
+{ #category : #tests }
 FourthVersionTest >> testFV01DeckHasALimitedAmountOfCards [
 
 	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard cardsDistribution cardsCollection |
